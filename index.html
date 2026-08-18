@@ -243,6 +243,61 @@
     border-radius:20px;padding:2px 8px;letter-spacing:.03em;
   }
 
+  /* ---------- info tabs ---------- */
+  .tabs > input{position:absolute;opacity:0;pointer-events:none}
+  .tab-bar{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:6px;padding:6px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+  }
+  .tab-bar label{
+    text-align:center;padding:9px 0;
+    font-size:12px;font-weight:500;color:var(--faint);
+    border-radius:9px;cursor:pointer;
+    transition:color .2s, background .2s;
+    letter-spacing:.06em;
+  }
+  .tab-bar label:hover{color:var(--dim)}
+  #t1:checked ~ .tab-bar label[for="t1"],
+  #t2:checked ~ .tab-bar label[for="t2"],
+  #t3:checked ~ .tab-bar label[for="t3"]{
+    background:linear-gradient(160deg,#3a2028,#2c1a20);
+    color:var(--txt);
+    box-shadow:inset 0 0 0 1px rgba(229,106,122,.35);
+  }
+
+  .tab-panel{
+    display:none;
+    margin-top:14px;padding:24px 20px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+  }
+  #t1:checked ~ .tab-panel.tp1,
+  #t2:checked ~ .tab-panel.tp2,
+  #t3:checked ~ .tab-panel.tp3{display:block}
+
+  .tab-panel .ptitle{
+    font-size:10px;font-weight:700;color:var(--accent);
+    letter-spacing:.25em;margin-bottom:14px;
+  }
+  .tab-panel ul{list-style:none}
+  .tab-panel li{
+    padding:9px 0;font-size:12px;color:#cfc8d3;font-weight:300;line-height:1.85;
+  }
+  .tab-panel li+li{border-top:1px dashed #26222a}
+  .tab-panel li b{color:var(--txt);font-weight:500}
+  .tab-panel .sub{color:var(--faint)}
+  .tab-panel .divider{
+    height:1px;background:var(--line);margin:14px 0;border:none;
+  }
+  .spoiler{
+    filter:blur(5px);cursor:pointer;transition:filter .2s;
+  }
+  .spoiler:hover,.spoiler:focus{filter:none}
+
   /* ---------- schedule ---------- */
   .sched{border-top:1px solid var(--line)}
   .sched .row{
@@ -422,6 +477,75 @@
     <div class="row"><span class="d">DAY 12</span><span class="c">싱가포르 여행 출발</span></div>
     <div class="row"><span class="d">DAY 13</span><span class="c">마지막 데이트 · X 전원 공개</span></div>
     <div class="row final"><span class="d">DAY 14</span><span class="c">최종 선택</span></div>
+  </div>
+
+    <!-- ============ INFO TABS ============ -->
+  <div class="sec-label">INFO</div>
+  <div class="tabs">
+    <input type="radio" name="tab" id="t1" checked>
+    <input type="radio" name="tab" id="t2">
+    <input type="radio" name="tab" id="t3">
+
+    <div class="tab-bar">
+      <label for="t1">TIP</label>
+      <label for="t2">🏠</label>
+      <label for="t3">⚠️</label>
+    </div>
+
+    <!-- TIP -->
+    <div class="tab-panel tp1">
+      <div class="ptitle">TIP</div>
+      <ul>
+        <li><b>🍭명령어</b> — 꺽쇠괄호(‘&lt;&gt;’) 포함 입력</li>
+        <li>
+          <b>&lt;[캐릭터이름] 시청&gt;</b> : {{user}}가 부재중인 상황에서 해당 캐릭터가 뭘 하고 있는지 출력
+          <span class="sub">(예시: &lt;무겸 시청&gt; / &lt;해담, 지수 시청&gt;)</span>
+        </li>
+        <li>
+          <b>&lt;[캐릭터이름] 인터뷰&gt;</b> : 입력한 캐릭터의 인터뷰 출력
+          <span class="sub">(예시: &lt;신우 인터뷰&gt;)</span>
+        </li>
+        <li><b>&lt;반응&gt;</b> : 패널 반응, 커뮤 반응 등 출력</li>
+        <li>
+          <b>&lt;메세지 출력&gt;</b> : 오후 8시에 매일 보내는 메세지를 출력. 해당 명령어는 {{user}}가 메세지를 보내는 것과 함께 <b>반드시</b> 사용해주세요.
+          <span class="sub">(예시: *저녁 8시가 되었으니 ㅇㅇ에게 ‘어쩌고 저쩌고’라고 전송한다.* &lt;메세지 출력&gt;)</span>
+        </li>
+      </ul>
+      <hr class="divider">
+      <ul>
+        <li><b>🍭추천 대화 모드</b></li>
+        <li class="sub">내용 작성 예정</li>
+      </ul>
+    </div>
+
+    <!-- HOUSE -->
+    <div class="tab-panel tp2">
+      <div class="ptitle">HOUSE</div>
+      <ul>
+        <li><b>1층</b> — 공용 거실 · 주방. 거실에 주류 넉넉히 구비되어있음</li>
+        <li><b>2층</b> — 남성 출연자 방(각방)</li>
+        <li><b>3층</b> — 여성 출연자 방(각방)</li>
+        <li><b>옥상</b> — 개방</li>
+        <li><b>마당</b> — 수영장</li>
+        <li><b>별관(창고)</b> — 이벤트 시 사용</li>
+        <li><b>건물 뒤 공터</b> — 유일하게 카메라가 없는 곳</li>
+      </ul>
+    </div>
+
+    <!-- CAUTION -->
+    <div class="tab-panel tp3">
+      <div class="ptitle">CAUTION</div>
+      <ul>
+        <li>0. 누가 누구의 X인지, 그리고 각 캐릭터의 이야기를 알아가봅시당</li>
+        <li>1. 오신우의 나이는 28, 출연진 나이대는 26 ~ 33입니다.</li>
+        <li>2. 기억력을 위해 유저노트에 이야기 진행 정리 하시는 걸 추천드립니다😢<br>또한 캐릭터의 정보를 알게된다면, 비활성화된 유저노트를 하나 만드셔서 메모하시는 것을 추천드립니다.</li>
+        <li>3. HL, BL, GL 모두 가능. 모든 캐릭터는 바이섹슈얼입니다!<br>다만 공략 불가능 캐릭터가 있습니다. 해당 캐릭터 이름은 <span class="spoiler" tabindex="0">백이준입니다. 관련 지침을 열심히 넣었으나, 혹시라도 이준이 공략이 된다면 캐붕입니다.</span></li>
+        <li>4. 진짜 방송처럼 만들고 싶었기 때문에, 명령어 적극 사용 권장드립니다. <b>특히 &lt;메세지 출력&gt; 명령어는 매일 저녁 8시에 꼭 사용해주세요.</b> 명령어도 서사의 일부랍니다.</li>
+        <li>5. 모든 상황은 녹화중이나, 건물 뒤 공터에만은 카메라가 없습니다.</li>
+        <li>6. 그날 메인 이벤트 보시고 시간&amp;날짜 넘기셔도 되고, 밤에 술자리 하면서 기싸움 하셔도 되고, 건물 내 시설 이용하셔도 되고… 이야기는 자유롭게 진행해주세요.</li>
+        <li>7. 방송 종료 후 후속 방송도 있습니다.</li>
+      </ul>
+    </div>
   </div>
 
   <div class="footer">
