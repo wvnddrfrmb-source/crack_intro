@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>황궁 — 카르티아 제국</title>
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
 :root {
   --ink:       #0e0b14;
   --parchment: #e0d8c8;
@@ -16,16 +14,13 @@
   --violet:    #6e5a8a;
   --border:    rgba(110,90,138,0.18);
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
   background: var(--ink);
   color: var(--parchment);
   font-size: 13px;
   line-height: 1;
 }
-
 body::after {
   content: '';
   position: fixed;
@@ -34,37 +29,31 @@ body::after {
   pointer-events: none;
   z-index: 999;
 }
-
 .anchor {
   position: absolute;
   visibility: hidden;
   pointer-events: none;
 }
-
 .wrap {
   position: relative;
   z-index: 1;
-  max-width: 420px;
+  max-width: 340px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.2rem;
 }
-
 /* ── 슬라이더 ── */
 .slider {
   height: 440px;
   position: relative;
   overflow: hidden;
 }
-
 /* ── 배경: 보라빛 안개 ── */
 .amb-bg {
   position: absolute;
   inset: 0;
-
   pointer-events: none;
   z-index: 0;
 }
-
 .slide {
   display: none;
   position: absolute;
@@ -75,14 +64,11 @@ body::after {
   animation: fadeIn 0.4s ease;
   z-index: 1;
 }
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateX(30px); }
   to   { opacity: 1; transform: translateX(0); }
 }
-
 .slide-p1 { display: flex; }
-
 #p1:target ~ .wrap .slide-p1,
 #p2:target ~ .wrap .slide-p2,
 #p3:target ~ .wrap .slide-p3,
@@ -90,14 +76,12 @@ body::after {
 #p5:target ~ .wrap .slide-p5,
 #p6:target ~ .wrap .slide-p6,
 #p7:target ~ .wrap .slide-p7 { display: flex; }
-
 #p2:target ~ .wrap .slide-p1,
 #p3:target ~ .wrap .slide-p1,
 #p4:target ~ .wrap .slide-p1,
 #p5:target ~ .wrap .slide-p1,
 #p6:target ~ .wrap .slide-p1,
 #p7:target ~ .wrap .slide-p1 { display: none; }
-
 /* ── 왕관 장식 ── */
 .crown {
   text-align: center;
@@ -107,7 +91,6 @@ body::after {
   color: var(--gold);
   letter-spacing: 0.5em;
 }
-
 /* ── CHAPTER ── */
 .chapter {
   display: flex;
@@ -128,7 +111,6 @@ body::after {
   height: 1px;
   background: var(--border);
 }
-
 /* ── PROSE ── */
 .prose {
   font-size: 0.9rem;
@@ -139,7 +121,6 @@ body::after {
 .prose .line { color: #c0b8a8; }
 .prose .user-line { color: var(--gold); }
 .prose .highlight { color: var(--violet); }
-
 /* ── 가십지 (황금깃펜) ── */
 .gazette {
   width: 100%;
@@ -226,7 +207,6 @@ body::after {
   color: #8a7a50;
   padding-top: 0.2rem;
 }
-
 /* ── 서신 ── */
 .letter {
   margin: 1.8rem 0;
@@ -248,7 +228,6 @@ body::after {
   line-height: 2.1;
   color: #807870;
 }
-
 .ornament {
   color: var(--gold);
   font-size: 0.55rem;
@@ -257,7 +236,6 @@ body::after {
   opacity: 0.45;
   text-align: center;
 }
-
 /* ── NAV ── */
 .nav {
   display: flex;
@@ -281,7 +259,6 @@ body::after {
 #p6:target ~ .wrap .nav .nav-p6 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
 #p7:target ~ .wrap .nav .nav-set { display: none; }
 #p7:target ~ .wrap .nav .nav-p7 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-
 .nav-btn {
   display: inline-flex;
   align-items: center;
@@ -304,13 +281,11 @@ body::after {
   color: var(--dim);
 }
 .page-num .cur { color: var(--gold); }
-
 /* ══ 캐릭터 카드 ══ */
 .chars-section {
   padding: 3rem 0 4rem;
   border-top: 1px solid var(--border);
 }
-
 .chars-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 0.6rem;
@@ -328,18 +303,15 @@ body::after {
   height: 1px;
   background: var(--border);
 }
-
 .chars-grid {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-
 .card {
   display: block;
   border-radius: 4px;
 }
-
 .card-front {
   display: flex;
   flex-direction: column;
@@ -348,14 +320,12 @@ body::after {
   border-radius: 4px;
   overflow: hidden;
 }
-
 .card-top {
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 84px 1fr;
 }
-
 .card-img {
-  width: 100px;
+  width: 84px;
   aspect-ratio: 3 / 4;
   background: rgba(110,90,138,0.08);
   overflow: hidden;
@@ -379,16 +349,14 @@ body::after {
   letter-spacing: 0.3em;
   text-transform: uppercase;
 }
-
 .card-header {
-  padding: 1rem 1.1rem;
+  padding: 0.8rem 0.9rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.25rem;
   border-bottom: 1px solid var(--border);
 }
-
 .card-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 0.95rem;
@@ -410,7 +378,6 @@ body::after {
   text-transform: uppercase;
   margin-top: 0.1rem;
 }
-
 .card-desc {
   padding: 0.85rem 1.1rem;
   font-size: 0.84rem;
@@ -418,7 +385,6 @@ body::after {
   color: #807870;
   border-bottom: 1px solid var(--border);
 }
-
 .card-keywords {
   display: flex;
   gap: 0.4rem;
@@ -435,13 +401,10 @@ body::after {
   text-transform: uppercase;
   border-radius: 2px;
 }
-
 </style>
 </head>
 <body>
-
 <div style="display:flex; flex-direction:column; align-items:center; color:#8b9096; font-size:0.8rem; margin:16px 0 32px;"><p><br>♬ AI로 생성한 음악입니다. ♬</p><br><audio src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/moonlight-on-the-danube.mp3" controls></audio></div>
-
 <span id="p1" class="anchor"></span>
 <span id="p2" class="anchor"></span>
 <span id="p3" class="anchor"></span>
@@ -449,11 +412,9 @@ body::after {
 <span id="p5" class="anchor"></span>
 <span id="p6" class="anchor"></span>
 <span id="p7" class="anchor"></span>
-
 <div class="wrap">
   <div class="slider">
     <div class="amb-bg"></div>
-
     <!-- PAGE 1 -->
     <div class="slide slide-p1">
       <div class="crown">♔</div>
@@ -467,7 +428,6 @@ body::after {
         <p>그야말로 골칫거리였다.<br><span style="color: #666; font-size: 0.75rem;">[▶]를 눌러 페이지 넘기기</span></p>
       </div>
     </div>
-
     <!-- PAGE 2 -->
     <div class="slide slide-p2">
       <div class="prose">
@@ -484,17 +444,15 @@ body::after {
         <div class="gazette-rule thin"></div>
       </div>
     </div>
-
     <!-- PAGE 3 -->
     <div class="slide slide-p3">
       <div class="prose">
         <p>칼럼의 단골 소재는 늘 같았다.</p>
-        <p>{{user}}가 티파티에서 새총으로 영애들의 머리 장식을 사냥한 사건,</>
+        <p>{{user}}가 티파티에서 새총으로 영애들의 머리 장식을 사냥한 사건,</p>
 <p>연회에서 다른 가문 영애의 드레스 장식을 뜯어낸 만행,</p>
 <p>그리고 대망의 정점 — 고양이를 연회장에 끌고 들어온 것도 모자라, 그 고양이에게 황태자의 이름인 '루카스'를 붙이고 웃던 사건까지.</p>
       </div>
     </div>
-
     <!-- PAGE 4 -->
     <div class="slide slide-p4">
       <div class="prose">
@@ -502,7 +460,6 @@ body::after {
         <p>그런데 그 악명 높은 {{user}}를 데려가겠다는 용자가 나타났다.<br>그것도 둘씩이나, 제국의 정점에 선 두 남자에게서.</p>
       </div>
     </div>
-
     <!-- PAGE 5 -->
     <div class="slide slide-p5">
       <div class="prose">
@@ -511,7 +468,6 @@ body::after {
         <p><span class="line">"황태자 루카스, 그리고 제2황자 타르젠. 양쪽에서 너를… 아니, 정확히는 우리 가문의 마정석 산지를 아내로 맞고 싶어 하는 모양이다."</span></p>
       </div>
     </div>
-
     <!-- PAGE 6 -->
     <div class="slide slide-p6">
       <div class="prose">
@@ -520,9 +476,7 @@ body::after {
         <p><span class="line">"…가서 정세나 좀 살피고 오너라. 깽판을 치든 춤을 추든, 이제는 제국의 운명에 맡기마."</span></p>
       </div>
     </div>
-
     <!-- PAGE 7 -->
-
     <div class="slide slide-p7">
 <div class="chapter">
         <span class="chapter-num">황궁으로</span>
@@ -534,9 +488,7 @@ body::after {
         <p>어느 쪽을 골라도 피곤한 미래가 그려졌지만, 아무렴 어떤가. {{user}}의 일상은 이미 충분히 피곤했으므로. 여기서 더 피곤해질 리가 없다는 오만한 확신에, 망설임 없이 황궁으로 향했다.</p>
       </div>
     </div>
-
   </div><!-- /slider -->
-
   <!-- NAV -->
   <nav class="nav">
     <div class="nav-set nav-p1">
@@ -575,13 +527,11 @@ body::after {
       <span class="nav-btn disabled">▶</span>
     </div>
   </nav>
-
 <br>
   <div class="chars-section">
     <div class="ornament">— ◆ ◇ ◆ —</div>
 <br><br>
     <div class="chars-grid">
-
       <!-- CARD 1: 루카스 -->
       <label for="card1" class="card">
         <div class="card-front">
@@ -600,7 +550,6 @@ body::after {
           </div>
         </div>
       </label>
-
       <!-- CARD 2: 타르젠 -->
       <label for="card2" class="card">
         <div class="card-front">
@@ -619,7 +568,6 @@ body::after {
           </div>
         </div>
       </label>
-
       <!-- CARD 3: 에밀 -->
       <label for="card3" class="card">
         <div class="card-front">
@@ -638,7 +586,6 @@ body::after {
           </div>
         </div>
       </label>
-
       <!-- CARD 4: 살리에 -->
       <label for="card4" class="card">
         <div class="card-front">
@@ -657,7 +604,6 @@ body::after {
           </div>
         </div>
       </label>
-
       <!-- CARD 5: 발터 -->
       <label for="card5" class="card">
         <div class="card-front">
@@ -676,7 +622,6 @@ body::after {
           </div>
         </div>
       </label>
-
       <!-- CARD 6: 이반 -->
       <label for="card6" class="card">
         <div class="card-front">
