@@ -17,6 +17,7 @@
     --faint:#6b6370;
     --accent:#e56a7a;
     --accent-dim:#8a4552;
+    --coral:#e56a7a;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{
@@ -27,34 +28,43 @@
     line-height:1.7;
     letter-spacing:.01em;
   }
-  .wrap{max-width:420px;margin:0 auto;padding:36px 20px 80px}
+  .wrap{max-width:420px;margin:0 auto;padding:48px 20px 80px}
 
   /* ---------- language switch ---------- */
-  .wrap > input[name="lang"]{position:absolute;opacity:0;pointer-events:none}
-  .langbar{
-    display:flex;justify-content:flex-end;gap:6px;margin-bottom:26px;
+  .wrap > input{position:absolute;opacity:0;pointer-events:none}
+  .lang-bar{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:6px;padding:5px;margin-bottom:26px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:20px;
   }
-  .langbar label{
-    font-size:9px;letter-spacing:.2em;color:var(--faint);
-    border:1px solid var(--line);padding:4px 11px;border-radius:20px;
-    cursor:pointer;transition:all .2s;
+  .lang-bar label{
+    text-align:center;padding:7px 0;
+    font-size:10px;font-weight:500;color:var(--faint);
+    border-radius:16px;cursor:pointer;
+    letter-spacing:.2em;
+    transition:color .2s, background .2s;
   }
-  .langbar label:hover{color:var(--dim)}
-  #lang-ko:checked ~ .langbar label[for="lang-ko"],
-  #lang-en:checked ~ .langbar label[for="lang-en"]{
-    color:var(--txt);border-color:var(--accent-dim);
+  .lang-bar label:hover{color:var(--dim)}
+  #lk:checked ~ .lang-bar label[for="lk"],
+  #le:checked ~ .lang-bar label[for="le"]{
     background:linear-gradient(160deg,#3a2028,#2c1a20);
+    color:var(--txt);
+    box-shadow:inset 0 0 0 1px rgba(229,106,122,.35);
   }
-  #lang-ko:checked ~ * .en,
-  #lang-ko:checked ~ .en{display:none}
-  #lang-en:checked ~ * .ko,
-  #lang-en:checked ~ .ko{display:none}
+  #lk:checked ~ .content .en{display:none}
+  #le:checked ~ .content .ko{display:none}
+
+  /* coral highlight */
+  .c{color:var(--coral)}
 
   /* ---------- section label ---------- */
   .sec-label{
     font-size:9px;color:var(--faint);letter-spacing:.35em;
     text-transform:uppercase;text-align:center;margin:64px 0 20px;
   }
+  .content > .sec-label:first-child{margin-top:0}
   .sec-label::before,.sec-label::after{content:"—";margin:0 10px;color:var(--line)}
 
   /* ---------- audio ---------- */
@@ -87,7 +97,7 @@
     display:flex;align-items:center;justify-content:center;font-size:13px;
     flex:none;
   }
-  .msg-header .name{font-size:13px;font-weight:500}
+  .msg-header .name{font-size:13px;font-weight:500;color:var(--coral)}
   .msg-header .sub{font-size:9px;color:var(--faint)}
   .msg-body{padding:16px 14px 22px;display:flex;flex-direction:column;gap:8px}
   .datestamp{
@@ -130,9 +140,7 @@
     padding:0 6px;
   }
   .story p+p{margin-top:8px}
-  .story em{
-    font-style:normal;color:var(--txt);font-weight:400;
-  }
+  .story em{font-style:normal;color:var(--txt);font-weight:400}
   .story .beat{
     text-align:center;color:var(--faint);font-size:11px;
     letter-spacing:.5em;margin:26px 0;
@@ -210,7 +218,7 @@
     flex:none;font-size:10px;color:#6f5560;font-weight:500;
     letter-spacing:.05em;padding-top:2px;white-space:nowrap;
   }
-  #lang-en:checked ~ * .rulebook li::before{content:"RULE " counter(rule)}
+  #le:checked ~ .content .rulebook li::before{content:"Art. " counter(rule)}
   .rulebook .rb-foot{
     margin-top:16px;padding-top:12px;border-top:1px solid rgba(43,37,48,.35);
     display:flex;justify-content:space-between;align-items:center;
@@ -232,10 +240,7 @@
     position:relative;overflow:hidden;
     display:flex;align-items:center;justify-content:center;
   }
-  .cast .photo .glyph{
-    position:absolute;inset:0;
-    display:block;font-size:26px;opacity:.9;
-  }
+  .cast .photo .glyph{position:absolute;inset:0;display:block;font-size:26px;opacity:.9}
   .cast .photo img{
     width:100%;height:100%;
     object-fit:cover;object-position:center 18%;
@@ -253,13 +258,9 @@
   .p5{background:linear-gradient(165deg,#242028,#171319 70%,#211820)}
   .p6{background:linear-gradient(165deg,#2b2028,#171319 70%,#1a141d)}
   .p7{background:linear-gradient(165deg,#2a1e22,#171319 70%,#1d1520)}
-  .cast .name{
-    text-align:center;font-size:13px;font-weight:500;letter-spacing:.12em;
-  }
-  .cast .tags{
-    display:flex;justify-content:center;flex-wrap:wrap;gap:4px;
-  }
-  .cast .tags span.tag{
+  .cast .name{text-align:center;font-size:13px;font-weight:500;letter-spacing:.12em}
+  .cast .tags{display:flex;justify-content:center;flex-wrap:wrap;gap:4px}
+  .cast .tags span{
     font-size:9px;color:var(--dim);border:1px solid var(--line);
     border-radius:20px;padding:2px 8px;letter-spacing:.03em;
   }
@@ -288,7 +289,6 @@
     color:var(--txt);
     box-shadow:inset 0 0 0 1px rgba(229,106,122,.35);
   }
-
   .tab-panel{
     display:none;
     margin-top:14px;padding:24px 20px;
@@ -299,6 +299,14 @@
   #t1:checked ~ .tab-panel.tp1,
   #t2:checked ~ .tab-panel.tp2,
   #t3:checked ~ .tab-panel.tp3{display:block}
+  #lk:checked ~ .content .tab-panel.en,
+  #le:checked ~ .content .tab-panel.ko{display:none !important}
+  #le:checked ~ .content #t1:checked ~ .tab-panel.tp1.en,
+  #le:checked ~ .content #t2:checked ~ .tab-panel.tp2.en,
+  #le:checked ~ .content #t3:checked ~ .tab-panel.tp3.en{display:block !important}
+  #lk:checked ~ .content #t1:checked ~ .tab-panel.tp1.ko,
+  #lk:checked ~ .content #t2:checked ~ .tab-panel.tp2.ko,
+  #lk:checked ~ .content #t3:checked ~ .tab-panel.tp3.ko{display:block !important}
 
   .tab-panel .ptitle{
     font-size:10px;font-weight:700;color:var(--accent);
@@ -310,13 +318,9 @@
   }
   .tab-panel li+li{border-top:1px dashed #26222a}
   .tab-panel li b{color:var(--txt);font-weight:500}
-  .tab-panel .note{color:var(--faint)}
-  .tab-panel .divider{
-    height:1px;background:var(--line);margin:14px 0;border:none;
-  }
-  .spoiler{
-    filter:blur(5px);cursor:pointer;transition:filter .2s;
-  }
+  .tab-panel .sub{color:var(--faint)}
+  .tab-panel .divider{height:1px;background:var(--line);margin:14px 0;border:none}
+  .spoiler{filter:blur(5px);cursor:pointer;transition:filter .2s}
   .spoiler:hover,.spoiler:focus{filter:none}
 
   /* ---------- schedule ---------- */
@@ -330,9 +334,9 @@
     letter-spacing:.08em;padding-top:1px;
   }
   .sched .row:nth-child(even){background:rgba(255,255,255,.012)}
-  .sched .c{color:#c9c2ce}
+  .sched .c2{color:#c9c2ce}
   .sched .final .d{color:var(--txt);font-weight:700}
-  .sched .final .c{color:var(--txt);font-weight:500}
+  .sched .final .c2{color:var(--txt);font-weight:500}
 
   .footer{
     margin-top:70px;text-align:center;font-size:9px;color:var(--faint);
@@ -344,45 +348,44 @@
 <body>
 <div class="wrap">
 
-  <input type="radio" name="lang" id="lang-ko" checked>
-  <input type="radio" name="lang" id="lang-en">
-
-  <div class="langbar">
-    <label for="lang-ko">KOR</label>
-    <label for="lang-en">ENG</label>
+  <input type="radio" name="lang" id="lk" checked>
+  <input type="radio" name="lang" id="le">
+  <div class="lang-bar">
+    <label for="lk">KOR</label>
+    <label for="le">ENG</label>
   </div>
+
+<div class="content">
 
   <div class="music">
     <p class="ko">♬ AI로 생성한 음악입니다. ♬</p>
-    <p class="en">♬ AI-generated music ♬</p>
+    <p class="en">♬ Music generated by AI ♬</p>
     <audio src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/first-date.mp3" controls></audio>
   </div>
 
   <!-- ============ STORY ============ -->
   <div class="sec-label">PROLOGUE</div>
-  <div class="story">
-    <p class="ko">2년 3개월. <em>오신우</em>와의 깨붙 2회를 곁들인 인생 최대의 낭비였다.</p>
-    <p class="en">Two years, three months. Two breakup-and-back-together rounds with <em>Oh Shinwoo</em> thrown in — the biggest waste of a life.</p>
 
-    <p class="ko">새벽 세 시의 바다를 기억한다. “드라이브 가자”는 말 한마디에 끌려간 밤이었다. 파도 소리, 차가운 모래, 그리고 {{user}}를 바라보던 신우의 녹아내리는 듯한 눈빛. 하지만 그뿐이었다.</p>
-    <p class="en">{{user}} still remembers the sea at three in the morning — dragged out there by a single “let's go for a drive.” The waves, the cold sand, and the way Shinwoo looked at {{user}} like he was melting. But that was all it ever was.</p>
-
-    <p class="ko">데이트 중에 울리는 전화를 한 번도 거절하지 않는 남자. 서운하다고 말하면 사과 대신 웃으며 안아버리는 남자. 그리고 그 옆엔 항상 <em>현지수</em>가 있었다.</p>
-    <p class="en">A man who never once let a call go unanswered mid-date. A man who, told he'd hurt {{user}}, laughed and pulled {{user}} into a hug instead of apologizing. And <em>Hyun Jisoo</em> was always right there beside him.</p>
-
-    <p class="ko">첫 번째 이별은 신우가 지수와 둘이 새벽까지 술을 마신 날이었다. 두 번째는 1주년 기념일—신우는 그 날 지수가 낀 단체 모임에 있었다. 매번 자신을 달래러 오는 신우를 {{user}}는 마지막으로 용서해주기로 했었다.</p>
-    <p class="en">The first breakup came the night Shinwoo drank until dawn with Jisoo, just the two of them. The second was their first anniversary — he spent it at a group gathering Jisoo was part of. Each time he came running to smooth it over, and {{user}} decided to forgive him one last time.</p>
-
-    <p class="ko">"걔는 그냥 친구라니까. 너 나 의심해?" — 몸이 아프다는 지수의 연락을 받고 신우는 그 자리를 박차고 나갔고, {{user}}는 이들과 두 번 다시 엮이고 싶지 않았다.</p>
-    <p class="en">“She's just a friend. Are you seriously doubting me?” — then Jisoo called saying she was ill, and Shinwoo walked straight out. {{user}} never wanted anything to do with either of them again.</p>
-
+  <div class="story ko">
+    <p>2년 3개월. <em class="c">오신우</em>와의 깨붙 2회를 곁들인 인생 최대의 낭비였다.</p>
+    <p>새벽 세 시의 바다를 기억한다. “드라이브 가자”는 말 한마디에 끌려간 밤이었다. 파도 소리, 차가운 모래, 그리고 <span class="c">당신</span>을 바라보던 신우의 녹아내리는 듯한 눈빛. 하지만 그뿐이었다.</p>
+    <p>데이트 중에 울리는 전화를 한 번도 거절하지 않는 남자. 서운하다고 말하면 사과 대신 웃으며 안아버리는 남자. 그리고 그 옆엔 항상 <em class="c">현지수</em>가 있었다.</p>
+    <p>첫 번째 이별은 신우가 지수와 둘이 새벽까지 술을 마신 날이었다. 두 번째는 1주년 기념일—신우는 그 날 지수가 낀 단체 모임에 있었다. 매번 자신을 달래러 오는 신우를 <span class="c">당신</span>은 마지막으로 용서해주기로 했었다.</p>
+    <p>"걔는 그냥 친구라니까. 너 나 의심해?" — 몸이 아프다는 지수의 연락을 받고 신우는 그 자리를 박차고 나갔고, <span class="c">당신</span>은 이들과 두 번 다시 엮이고 싶지 않았다.</p>
     <p class="beat">···</p>
+    <p>그런데 이 새끼가 <em>배우</em>를 한단다.</p>
+    <p>찾아보니 지수는 팔로워 몇십만짜리 인플루언서가 되어 있었다. <span class="c">당신</span>은 제 2년을 밟고 지나간 두 사람이 나란히 잘 풀리는 그림을 두고 볼 수 없었다.</p>
+  </div>
 
-    <p class="ko">그런데 이 새끼가 <em>배우</em>를 한단다.</p>
-    <p class="en">And now this bastard says he's becoming an <em>actor</em>.</p>
-
-    <p class="ko">찾아보니 지수는 팔로워 몇십만짜리 인플루언서가 되어 있었다. {{user}}는 제 2년을 밟고 지나간 두 사람이 나란히 잘 풀리는 그림을 두고 볼 수 없었다.</p>
-    <p class="en">A quick search showed Jisoo had become an influencer with a few hundred thousand followers. {{user}} could not sit and watch the two people who trampled those two years rise side by side.</p>
+  <div class="story en">
+    <p>Two years and three months. Two breakups, two reunions, and the single biggest waste of a life — <em class="c">Oh Shin-woo</em>.</p>
+    <p><span class="c">You</span> still remember the sea at three in the morning. One "let's go for a drive" and you were out the door. The waves, the cold sand, and the way Shin-woo looked at <span class="c">you</span> — like he was melting. That was as far as it ever went.</p>
+    <p>A man who never once let a call ring out, not even mid-date. A man who, when you said he'd hurt you, pulled you into a laughing hug instead of apologizing. And always, right beside him, <em class="c">Hyun Ji-su</em>.</p>
+    <p>The first breakup came the night he drank until dawn with Ji-su. Just the two of them. The second was your first anniversary — he spent it at a group dinner Ji-su happened to be at. Every time, he came back to smooth it over. Every time, <span class="c">you</span> let him. The last one, you told yourself, would be the last.</p>
+    <p>"She's just a friend. What, you don't trust me?" — then Ji-su texted that she wasn't feeling well, and he walked out mid-argument. <span class="c">You</span> were done with both of them.</p>
+    <p class="beat">···</p>
+    <p>And now the bastard says he's going to be an <em>actor</em>.</p>
+    <p>You looked her up. Ji-su had turned into an influencer with a few hundred thousand followers. Two people who trampled two years of your life, thriving side by side — <span class="c">you</span> couldn't let that stand.</p>
   </div>
 
   <!-- ============ PHONE ============ -->
@@ -394,22 +397,22 @@
         <span class="back">‹</span>
         <div class="avatar">🦊</div>
         <div>
-          <div class="name"><span class="ko">오신우</span><span class="en">Oh Shinwoo</span></div>
-          <div class="sub"><span class="ko">2년 만의 메세지</span><span class="en">First message in 2 years</span></div>
+          <div class="name"><span class="ko">오신우</span><span class="en">Oh Shin-woo</span></div>
+          <div class="sub"><span class="ko">2년 만의 메세지</span><span class="en">First text in two years</span></div>
         </div>
       </div>
       <div class="msg-body">
         <div class="datestamp"><span class="ko">오늘</span><span class="en">Today</span></div>
         <div class="bubble-row">
-          <div class="bubble"><span class="ko">야 ㅋㅋ 잘 지내냐?</span><span class="en">hey lol you doing alright?</span></div>
+          <div class="bubble"><span class="ko">야 ㅋㅋ 잘 지내냐?</span><span class="en">yo lol you doing okay?</span></div>
           <span class="time">23:41</span>
         </div>
         <div class="bubble-row">
-          <div class="bubble"><span class="ko">나 요즘 배우 준비하거든<br>연프 하나 들어가려고 하는데</span><span class="en">i'm training to be an actor now<br>thinking of joining a dating show</span></div>
+          <div class="bubble"><span class="ko">나 요즘 배우 준비하거든<br>연프 하나 들어가려고 하는데</span><span class="en">so i'm training to be an actor now<br>thinking of doing a dating show</span></div>
           <span class="time">23:41</span>
         </div>
         <div class="bubble-row">
-          <div class="bubble"><span class="ko">너 생각나더라. 같이 나가자</span><span class="en">thought of you. let's go on together</span></div>
+          <div class="bubble"><span class="ko">너 생각나더라. 같이 나가자</span><span class="en">you came to mind. come on with me</span></div>
           <span class="time">23:42</span>
         </div>
         <div class="bubble-row" style="max-width:78%">
@@ -436,11 +439,11 @@
       <h1><span>REPLAY?</span></h1>
       <div class="tagline">
         <span class="ko">끝난 줄 알았던 사랑이,<br>같은 지붕 아래에서 다시 재생된다</span>
-        <span class="en">A love you thought was over,<br>playing again under one roof</span>
+        <span class="en">A love you thought was over,<br>pressed play again under one roof</span>
       </div>
     </div>
     <div class="bottom">
-      <b><span class="ko">당신의 X는, 아직 당신을 기억하고 있습니까</span><span class="en">Does your X still remember you?</span></b><br>
+      <b><span class="ko">당신의 X는, 아직 당신을 기억하고 있습니까</span><span class="en">Does your ex still remember you?</span></b><br>
       FIRST EPISODE · COMING SOON
     </div>
   </div>
@@ -449,59 +452,59 @@
   <div class="sec-label">CAST</div>
   <div class="cast-grid">
     <div class="cast">
-      <div class="photo p1"><span class="no">CAST 01</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3278.jpeg" alt="Song Mugyeom"></span></div>
-      <div class="name">🐹<span class="ko">송무겸</span><span class="en">Song Mugyeom</span></div>
+      <div class="photo p1"><span class="no">CAST 01</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3278.jpeg" alt="Song Mu-gyeom"></span></div>
+      <div class="name">🐹<span class="ko">송무겸</span><span class="en">Song Mu-gyeom</span></div>
       <div class="tags">
-        <span class="ko"><span class="tag">#다정</span> <span class="tag">#안정감</span> <span class="tag">#골초</span></span>
-        <span class="en"><span class="tag">#Warm</span> <span class="tag">#Steady</span> <span class="tag">#ChainSmoker</span></span>
+        <span class="ko">#다정</span><span class="ko">#안정감</span><span class="ko">#골초</span>
+        <span class="en">#Warm</span><span class="en">#Steady</span><span class="en">#ChainSmoker</span>
       </div>
     </div>
     <div class="cast">
-      <div class="photo p2"><span class="no">CAST 02</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3276.jpeg" alt="Jung Haedam"></span></div>
-      <div class="name">🐻<span class="ko">정해담</span><span class="en">Jung Haedam</span></div>
+      <div class="photo p2"><span class="no">CAST 02</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3276.jpeg" alt="Jung Hae-dam"></span></div>
+      <div class="name">🐻<span class="ko">정해담</span><span class="en">Jung Hae-dam</span></div>
       <div class="tags">
-        <span class="ko"><span class="tag">#무뚝뚝</span> <span class="tag">#행동파</span> <span class="tag">#계획형</span></span>
-        <span class="en"><span class="tag">#Blunt</span> <span class="tag">#Doer</span> <span class="tag">#Planner</span></span>
+        <span class="ko">#무뚝뚝</span><span class="ko">#행동파</span><span class="ko">#계획형</span>
+        <span class="en">#Blunt</span><span class="en">#Doer</span><span class="en">#Planner</span>
       </div>
     </div>
     <div class="cast">
-      <div class="photo p3"><span class="no">CAST 03</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3277.jpeg" alt="Yoon Soi"></span></div>
-      <div class="name">🐭<span class="ko">윤소이</span><span class="en">Yoon Soi</span></div>
+      <div class="photo p3"><span class="no">CAST 03</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3277.jpeg" alt="Yoon So-i"></span></div>
+      <div class="name">🐭<span class="ko">윤소이</span><span class="en">Yoon So-i</span></div>
       <div class="tags">
-        <span class="ko"><span class="tag">#물음표살인마</span> <span class="tag">#눈치백단</span> <span class="tag">#허당</span></span>
-        <span class="en"><span class="tag">#AlwaysAsking</span> <span class="tag">#ReadsTheRoom</span> <span class="tag">#Klutz</span></span>
+        <span class="ko">#물음표살인마</span><span class="ko">#눈치백단</span><span class="ko">#허당</span>
+        <span class="en">#AsksEverything</span><span class="en">#ReadsTheRoom</span><span class="en">#Klutz</span>
       </div>
     </div>
     <div class="cast">
-      <div class="photo p4"><span class="no">CAST 04</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3279.jpeg" alt="Oh Shinwoo"></span></div>
-      <div class="name">🦊<span class="ko">오신우</span><span class="en">Oh Shinwoo</span></div>
+      <div class="photo p4"><span class="no">CAST 04</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3279.jpeg" alt="Oh Shin-woo"></span></div>
+      <div class="name c">🦊<span class="ko">오신우</span><span class="en">Oh Shin-woo</span></div>
       <div class="tags">
-        <span class="ko"><span class="tag">#인싸</span> <span class="tag">#능글</span> <span class="tag">#경계흐림</span></span>
-        <span class="en"><span class="tag">#Social</span> <span class="tag">#Smooth</span> <span class="tag">#NoBoundaries</span></span>
+        <span class="ko">#인싸</span><span class="ko">#능글</span><span class="ko">#경계흐림</span>
+        <span class="en">#SocialButterfly</span><span class="en">#Smooth</span><span class="en">#NoBoundaries</span>
       </div>
     </div>
     <div class="cast">
-      <div class="photo p5"><span class="no">CAST 05</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3275.jpeg" alt="Baek Ijun"></span></div>
-      <div class="name">🐱<span class="ko">백이준</span><span class="en">Baek Ijun</span></div>
+      <div class="photo p5"><span class="no">CAST 05</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3275.jpeg" alt="Baek Yi-jun"></span></div>
+      <div class="name">🐱<span class="ko">백이준</span><span class="en">Baek Yi-jun</span></div>
       <div class="tags">
-        <span class="ko"><span class="tag">#감정표현</span> <span class="tag">#질투</span> <span class="tag">#직진</span></span>
-        <span class="en"><span class="tag">#Expressive</span> <span class="tag">#Jealous</span> <span class="tag">#NoBrakes</span></span>
+        <span class="ko">#감정표현</span><span class="ko">#질투</span><span class="ko">#직진</span>
+        <span class="en">#WearsHisHeart</span><span class="en">#Jealous</span><span class="en">#NoBrakes</span>
       </div>
     </div>
     <div class="cast">
-      <div class="photo p6"><span class="no">CAST 06</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3280.jpeg" alt="Gong Sian"></span></div>
-      <div class="name">🐶<span class="ko">공시안</span><span class="en">Gong Sian</span></div>
+      <div class="photo p6"><span class="no">CAST 06</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3280.jpeg" alt="Gong Si-an"></span></div>
+      <div class="name">🐶<span class="ko">공시안</span><span class="en">Gong Si-an</span></div>
       <div class="tags">
-        <span class="ko"><span class="tag">#저전력</span> <span class="tag">#너드</span> <span class="tag">#마이웨이</span></span>
-        <span class="en"><span class="tag">#LowBattery</span> <span class="tag">#Nerd</span> <span class="tag">#MyOwnPace</span></span>
+        <span class="ko">#저전력</span><span class="ko">#너드</span><span class="ko">#마이웨이</span>
+        <span class="en">#LowBattery</span><span class="en">#Nerd</span><span class="en">#OwnDrum</span>
       </div>
     </div>
     <div class="cast solo">
-      <div class="photo p7"><span class="no">CAST 07</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3281.jpeg" alt="Hyun Jisoo"></span></div>
-      <div class="name">🐰<span class="ko">현지수</span><span class="en">Hyun Jisoo</span></div>
+      <div class="photo p7"><span class="no">CAST 07</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3281.jpeg" alt="Hyun Ji-su"></span></div>
+      <div class="name c">🐰<span class="ko">현지수</span><span class="en">Hyun Ji-su</span></div>
       <div class="tags">
-        <span class="ko"><span class="tag">#분위기메이커</span> <span class="tag">#주인공</span> <span class="tag">#여우</span></span>
-        <span class="en"><span class="tag">#LifeOfTheParty</span> <span class="tag">#MainCharacter</span> <span class="tag">#Sly</span></span>
+        <span class="ko">#분위기메이커</span><span class="ko">#주인공</span><span class="ko">#여우</span>
+        <span class="en">#LifeOfTheParty</span><span class="en">#MainCharacter</span><span class="en">#Sly</span>
       </div>
     </div>
   </div>
@@ -510,39 +513,20 @@
   <div class="sec-label">HOUSE RULES</div>
   <div class="rulebook">
     <div class="rb-head">
-      <div class="stamp"><span class="ko">위반 시 즉시 퇴소</span><span class="en">VIOLATION = IMMEDIATE EXIT</span></div>
+      <div class="stamp"><span class="ko">위반 시 즉시 퇴소</span><span class="en">Violation = immediate removal</span></div>
       <h2><span class="ko">입주 규칙서</span><span class="en">HOUSE RULES</span></h2>
       <div class="sub"><span class="ko">Replay? 제작위원회</span><span class="en">Replay? Production Committee</span></div>
     </div>
     <ol>
-      <li>
-        <span class="ko">본인의 X(전 연인)가 누구인지 밝히지 않는다.</span>
-        <span class="en">Do not reveal who your X (former partner) is.</span>
-      </li>
-      <li>
-        <span class="ko">4일 차 이전에는 나이와 직업을 공개하지 않는다.</span>
-        <span class="en">Do not disclose your age or occupation before Day 4.</span>
-      </li>
-      <li>
-        <span class="ko">SNS 계정 및 개인 연락처를 교환하지 않는다.</span>
-        <span class="en">Do not exchange social media accounts or personal contacts.</span>
-      </li>
-      <li>
-        <span class="ko">최종 선택은 성별과 관계없이 가능하다.</span>
-        <span class="en">The final choice may be made regardless of gender.</span>
-      </li>
-      <li>
-        <span class="ko">매일 아침 10시 전에 기상한다.</span>
-        <span class="en">Wake up before 10 AM every morning.</span>
-      </li>
-      <li>
-        <span class="ko">매일 저녁 8시, '오늘 마음에 든 단 한 사람'에게 익명 메세지를 전송한다.</span>
-        <span class="en">At 8 PM daily, send one anonymous message to the single person you liked most that day.</span>
-      </li>
+      <li><span class="ko">본인의 X(전 연인)가 누구인지 밝히지 않는다.</span><span class="en">Do not reveal which cast member is your ex.</span></li>
+      <li><span class="ko">4일 차 이전에는 나이와 직업을 공개하지 않는다.</span><span class="en">No disclosing your age or occupation before Day 4.</span></li>
+      <li><span class="ko">SNS 계정 및 개인 연락처를 교환하지 않는다.</span><span class="en">No exchanging social media handles or personal contacts.</span></li>
+      <li><span class="ko">최종 선택은 성별과 관계없이 가능하다.</span><span class="en">Your final choice may be anyone, regardless of gender.</span></li>
+      <li><span class="ko">매일 아침 10시 전에 기상한다.</span><span class="en">Be awake by 10:00 every morning.</span></li>
+      <li><span class="ko">매일 저녁 8시, '오늘 마음에 든 단 한 사람'에게 익명 메세지를 전송한다.</span><span class="en">At 8:00 PM each night, send one anonymous message to the single person you liked most that day.</span></li>
     </ol>
     <div class="rb-foot">
-      <span class="ko">서명 후 입소일에 지참할 것</span>
-      <span class="en">Sign and bring on move-in day</span>
+      <span><span class="ko">서명 후 입소일에 지참할 것</span><span class="en">Sign and bring on move-in day</span></span>
       <div class="seal"><span class="ko">확인</span><span class="en">OK</span></div>
     </div>
   </div>
@@ -550,20 +534,20 @@
   <!-- ============ SCHEDULE ============ -->
   <div class="sec-label">14 DAYS</div>
   <div class="sched">
-    <div class="row"><span class="d">DAY 1</span><span class="c"><span class="ko">입소 · 첫만남</span><span class="en">Move-in · First meeting</span></span></div>
-    <div class="row"><span class="d">DAY 2</span><span class="c"><span class="ko">X의 소개서 낭독 · 택배 개봉</span><span class="en">Reading the X's intro letter · Opening parcels</span></span></div>
-    <div class="row"><span class="d">DAY 3</span><span class="c"><span class="ko">취향 블라인드 데이트</span><span class="en">Blind date by taste</span></span></div>
-    <div class="row"><span class="d">DAY 4</span><span class="c"><span class="ko">나이 · 직업 공개</span><span class="en">Age · Occupation reveal</span></span></div>
-    <div class="row"><span class="d">DAY 5</span><span class="c"><span class="ko">휴식 · 장보기</span><span class="en">Rest · Grocery run</span></span></div>
-    <div class="row"><span class="d">DAY 6</span><span class="c"><span class="ko">상대의 X와 익명 통화</span><span class="en">Anonymous call with someone's X</span></span></div>
-    <div class="row"><span class="d">DAY 7</span><span class="c"><span class="ko">X룸 오픈 · 블라인드 대화</span><span class="en">X-Room opens · Talk behind the blind</span></span></div>
-    <div class="row"><span class="d">DAY 8</span><span class="c"><span class="ko">운동회 — 우승조 지목 우선권</span><span class="en">Sports day — winners pick first</span></span></div>
-    <div class="row"><span class="d">DAY 9</span><span class="c"><span class="ko">1차 자유 지목 데이트</span><span class="en">First free-choice date</span></span></div>
-    <div class="row"><span class="d">DAY 10</span><span class="c"><span class="ko">2차 매칭 · X와 선물 고르기</span><span class="en">Second matching · Gift shopping with your X</span></span></div>
-    <div class="row"><span class="d">DAY 11</span><span class="c"><span class="ko">2차 데이트 · 선물 교환</span><span class="en">Second date · Gift exchange</span></span></div>
-    <div class="row"><span class="d">DAY 12</span><span class="c"><span class="ko">싱가포르 여행 출발</span><span class="en">Departure for Singapore</span></span></div>
-    <div class="row"><span class="d">DAY 13</span><span class="c"><span class="ko">마지막 데이트 · X 전원 공개</span><span class="en">Final date · All X's revealed</span></span></div>
-    <div class="row final"><span class="d">DAY 14</span><span class="c"><span class="ko">최종 선택</span><span class="en">The final choice</span></span></div>
+    <div class="row"><span class="d">DAY 1</span><span class="c2"><span class="ko">입소 · 첫만남</span><span class="en">Move-in · First meeting</span></span></div>
+    <div class="row"><span class="d">DAY 2</span><span class="c2"><span class="ko">X의 소개서 낭독 · 택배 개봉</span><span class="en">Reading your ex's intro letter · Opening the parcels</span></span></div>
+    <div class="row"><span class="d">DAY 3</span><span class="c2"><span class="ko">취향 블라인드 데이트</span><span class="en">Blind dates, chosen by taste</span></span></div>
+    <div class="row"><span class="d">DAY 4</span><span class="c2"><span class="ko">나이 · 직업 공개</span><span class="en">Age &amp; occupation reveal</span></span></div>
+    <div class="row"><span class="d">DAY 5</span><span class="c2"><span class="ko">휴식 · 장보기</span><span class="en">Rest · Grocery run</span></span></div>
+    <div class="row"><span class="d">DAY 6</span><span class="c2"><span class="ko">상대의 X와 익명 통화</span><span class="en">Anonymous call with someone else's ex</span></span></div>
+    <div class="row"><span class="d">DAY 7</span><span class="c2"><span class="ko">X룸 오픈 · 블라인드 대화</span><span class="en">The Ex Room opens · Talking through the blind</span></span></div>
+    <div class="row"><span class="d">DAY 8</span><span class="c2"><span class="ko">운동회 — 우승조 지목 우선권</span><span class="en">Sports day — winners pick first</span></span></div>
+    <div class="row"><span class="d">DAY 9</span><span class="c2"><span class="ko">1차 자유 지목 데이트</span><span class="en">First round of open-choice dates</span></span></div>
+    <div class="row"><span class="d">DAY 10</span><span class="c2"><span class="ko">2차 매칭 · X와 선물 고르기</span><span class="en">Second matching · Gift shopping with your ex</span></span></div>
+    <div class="row"><span class="d">DAY 11</span><span class="c2"><span class="ko">2차 데이트 · 선물 교환</span><span class="en">Second dates · Gift exchange</span></span></div>
+    <div class="row"><span class="d">DAY 12</span><span class="c2"><span class="ko">싱가포르 여행 출발</span><span class="en">Departure for Singapore</span></span></div>
+    <div class="row"><span class="d">DAY 13</span><span class="c2"><span class="ko">마지막 데이트 · X 전원 공개</span><span class="en">Final dates · Every ex revealed</span></span></div>
+    <div class="row final"><span class="d">DAY 14</span><span class="c2"><span class="ko">최종 선택</span><span class="en">The final choice</span></span></div>
   </div>
 
   <!-- ============ INFO TABS ============ -->
@@ -579,115 +563,95 @@
       <label for="t3">⚠️</label>
     </div>
 
-    <!-- TIP -->
-    <div class="tab-panel tp1">
+    <!-- TIP KO -->
+    <div class="tab-panel tp1 ko">
       <div class="ptitle">TIP</div>
       <ul>
-        <li>
-          <span class="ko"><b>🍭명령어</b> — 꺽쇠괄호(‘&lt;&gt;’) 포함 입력</span>
-          <span class="en"><b>🍭Commands</b> — type them with the angle brackets ‘&lt;&gt;’</span>
-        </li>
-        <li>
-          <span class="ko"><b>&lt;[캐릭터이름] 시청&gt;</b> : {{user}}가 부재중인 상황에서 해당 캐릭터가 뭘 하고 있는지 출력<br><span class="note">(예시: &lt;무겸 시청&gt; / &lt;해담, 지수 시청&gt;)</span></span>
-          <span class="en"><b>&lt;[name] 시청&gt;</b> : shows what that character is doing while {{user}} is away<br><span class="note">(e.g. &lt;무겸 시청&gt; / &lt;해담, 지수 시청&gt;)</span></span>
-        </li>
-        <li>
-          <span class="ko"><b>&lt;[캐릭터이름] 인터뷰&gt;</b> : 입력한 캐릭터의 인터뷰 출력<br><span class="note">(예시: &lt;신우 인터뷰&gt;)</span></span>
-          <span class="en"><b>&lt;[name] 인터뷰&gt;</b> : shows that character's confessional interview<br><span class="note">(e.g. &lt;신우 인터뷰&gt;)</span></span>
-        </li>
-        <li>
-          <span class="ko"><b>&lt;반응&gt;</b> : 패널 반응, 커뮤 반응 등 출력</span>
-          <span class="en"><b>&lt;반응&gt;</b> : shows studio panel and online reactions</span>
-        </li>
-        <li>
-          <span class="ko"><b>&lt;메세지 출력&gt;</b> : 오후 8시에 매일 보내는 메세지를 출력. 해당 명령어는 {{user}}가 메세지를 보내는 것과 함께 <b>반드시</b> 사용해주세요.<br><span class="note">(예시: *저녁 8시가 되었으니 ㅇㅇ에게 ‘어쩌고 저쩌고’라고 전송한다.* &lt;메세지 출력&gt;)</span></span>
-          <span class="en"><b>&lt;메세지 출력&gt;</b> : shows the 8 PM anonymous messages. Always use this <b>together with</b> {{user}}'s own message.<br><span class="note">(e.g. *It's 8 PM, so I send “…” to ___.* &lt;메세지 출력&gt;)</span></span>
-        </li>
+        <li><b>🍭명령어</b> — 꺽쇠괄호(‘&lt;&gt;’) 포함 입력</li>
+        <li><b>&lt;[캐릭터이름] 시청&gt;</b> : 당신이 부재중인 상황에서 해당 캐릭터가 뭘 하고 있는지 출력 <span class="sub">(예시: &lt;무겸 시청&gt; / &lt;해담, 지수 시청&gt;)</span></li>
+        <li><b>&lt;[캐릭터이름] 인터뷰&gt;</b> : 입력한 캐릭터의 인터뷰 출력 <span class="sub">(예시: &lt;신우 인터뷰&gt;)</span></li>
+        <li><b>&lt;반응&gt;</b> : 패널 반응, 커뮤 반응 등 출력</li>
+        <li><b>&lt;메세지 출력&gt;</b> : 오후 8시에 매일 보내는 메세지를 출력. 당신이 메세지를 보내는 것과 함께 <b>반드시</b> 사용해주세요. <span class="sub">(예시: *저녁 8시가 되었으니 ㅇㅇ에게 ‘어쩌고 저쩌고’라고 전송한다.* &lt;메세지 출력&gt;)</span></li>
       </ul>
       <hr class="divider">
       <ul>
-        <li>
-          <span class="ko"><b>🍭추천 대화 모드</b></span>
-          <span class="en"><b>🍭Recommended chat modes</b></span>
-        </li>
-        <li class="note">
-          <span class="ko">내용 작성 예정</span>
-          <span class="en">Coming soon</span>
-        </li>
+        <li><b>🍭추천 대화 모드</b></li>
+        <li class="sub">내용 작성 예정</li>
       </ul>
     </div>
 
-    <!-- HOUSE -->
-    <div class="tab-panel tp2">
+    <!-- TIP EN -->
+    <div class="tab-panel tp1 en">
+      <div class="ptitle">TIP</div>
+      <ul>
+        <li><b>🍭Commands</b> — type them with the angle brackets. <span class="sub">Commands are entered in Korean.</span></li>
+        <li><b>&lt;[name] 시청&gt;</b> : shows what that character is up to while <span class="c">you</span>'re not in the room <span class="sub">(e.g. &lt;무겸 시청&gt; / &lt;해담, 지수 시청&gt;)</span></li>
+        <li><b>&lt;[name] 인터뷰&gt;</b> : pulls up that character's confessional interview <span class="sub">(e.g. &lt;신우 인터뷰&gt;)</span></li>
+        <li><b>&lt;반응&gt;</b> : panel reactions, online chatter, and the like</li>
+        <li><b>&lt;메세지 출력&gt;</b> : prints the 8 PM anonymous messages. Always send this <b>together with</b> your own message. <span class="sub">(e.g. *It's 8 PM, so I send "…" to ㅇㅇ.* &lt;메세지 출력&gt;)</span></li>
+      </ul>
+      <hr class="divider">
+      <ul>
+        <li><b>🍭Recommended chat modes</b></li>
+        <li class="sub">Coming soon</li>
+      </ul>
+    </div>
+
+    <!-- HOUSE KO -->
+    <div class="tab-panel tp2 ko">
       <div class="ptitle">HOUSE</div>
       <ul>
-        <li>
-          <span class="ko"><b>1층</b> — 공용 거실 · 주방. 거실에 주류 넉넉히 구비되어있음</span>
-          <span class="en"><b>1F</b> — Shared living room · kitchen. Plenty of drinks stocked in the living room</span>
-        </li>
-        <li>
-          <span class="ko"><b>2층</b> — 남성 출연자 방(각방)</span>
-          <span class="en"><b>2F</b> — Male cast rooms (private)</span>
-        </li>
-        <li>
-          <span class="ko"><b>3층</b> — 여성 출연자 방(각방)</span>
-          <span class="en"><b>3F</b> — Female cast rooms (private)</span>
-        </li>
-        <li>
-          <span class="ko"><b>옥상</b> — 개방</span>
-          <span class="en"><b>Rooftop</b> — Open access</span>
-        </li>
-        <li>
-          <span class="ko"><b>마당</b> — 수영장</span>
-          <span class="en"><b>Yard</b> — Swimming pool</span>
-        </li>
-        <li>
-          <span class="ko"><b>별관(창고)</b> — 이벤트 시 사용</span>
-          <span class="en"><b>Annex (storage)</b> — Used for events</span>
-        </li>
-        <li>
-          <span class="ko"><b>건물 뒤 공터</b> — 유일하게 카메라가 없는 곳</span>
-          <span class="en"><b>Lot behind the house</b> — The only spot with no cameras</span>
-        </li>
+        <li><b>1층</b> — 공용 거실 · 주방. 거실에 주류 넉넉히 구비되어있음</li>
+        <li><b>2층</b> — 남성 출연자 방(각방)</li>
+        <li><b>3층</b> — 여성 출연자 방(각방)</li>
+        <li><b>옥상</b> — 개방</li>
+        <li><b>마당</b> — 수영장</li>
+        <li><b>별관(창고)</b> — 이벤트 시 사용</li>
+        <li><b>건물 뒤 공터</b> — 유일하게 카메라가 없는 곳</li>
       </ul>
     </div>
 
-    <!-- CAUTION -->
-    <div class="tab-panel tp3">
+    <!-- HOUSE EN -->
+    <div class="tab-panel tp2 en">
+      <div class="ptitle">HOUSE</div>
+      <ul>
+        <li><b>1F</b> — Shared living room &amp; kitchen. The bar is generously stocked</li>
+        <li><b>2F</b> — Male cast bedrooms (one each)</li>
+        <li><b>3F</b> — Female cast bedrooms (one each)</li>
+        <li><b>Rooftop</b> — Open access</li>
+        <li><b>Yard</b> — Pool</li>
+        <li><b>Annex (storage)</b> — Used for events</li>
+        <li><b>The lot behind the house</b> — The only place without cameras</li>
+      </ul>
+    </div>
+
+    <!-- CAUTION KO -->
+    <div class="tab-panel tp3 ko">
       <div class="ptitle">CAUTION</div>
       <ul>
-        <li>
-          <span class="ko">0. 누가 누구의 X인지, 그리고 각 캐릭터의 이야기를 알아가봅시당</span>
-          <span class="en">0. Figure out who is whose X, and uncover each character's story.</span>
-        </li>
-        <li>
-          <span class="ko">1. 오신우의 나이는 28, 출연진 나이대는 26 ~ 33입니다.</span>
-          <span class="en">1. Oh Shinwoo is 28. The cast ranges from 26 to 33.</span>
-        </li>
-        <li>
-          <span class="ko">2. 기억력을 위해 유저노트에 이야기 진행 정리 하시는 걸 추천드립니다😢<br>또한 캐릭터의 정보를 알게된다면, 비활성화된 유저노트를 하나 만드셔서 메모하시는 것을 추천드립니다.</span>
-          <span class="en">2. For memory's sake, keep a running summary in your user note😢<br>Also, once you learn a character's secrets, keep a second (disabled) user note as your private log.</span>
-        </li>
-        <li>
-          <span class="ko">3. HL, BL, GL 모두 가능. 모든 캐릭터는 바이섹슈얼입니다!<br>다만 공략 불가능 캐릭터가 있습니다. 해당 캐릭터 이름은 <span class="spoiler" tabindex="0">백이준입니다. 관련 지침을 열심히 넣었으나, 혹시라도 이준이 공략이 된다면 캐붕입니다.</span></span>
-          <span class="en">3. HL, BL and GL are all possible — every character is bisexual!<br>One character, however, cannot be romanced. That character is <span class="spoiler" tabindex="0">Baek Ijun. The instructions are in place, but if he ever falls for you, treat it as out of character.</span></span>
-        </li>
-        <li>
-          <span class="ko">4. 진짜 방송처럼 만들고 싶었기 때문에, 명령어 적극 사용 권장드립니다. <b>특히 &lt;메세지 출력&gt; 명령어는 매일 저녁 8시에 꼭 사용해주세요.</b> 명령어도 서사의 일부랍니다.</span>
-          <span class="en">4. This was built to feel like a real broadcast, so please use the commands freely. <b>Especially &lt;메세지 출력&gt; every day at 8 PM.</b> The commands are part of the story.</span>
-        </li>
-        <li>
-          <span class="ko">5. 모든 상황은 녹화중이나, 건물 뒤 공터에만은 카메라가 없습니다.</span>
-          <span class="en">5. Everything is being filmed — except the empty lot behind the house.</span>
-        </li>
-        <li>
-          <span class="ko">6. 그날 메인 이벤트 보시고 시간&amp;날짜 넘기셔도 되고, 밤에 술자리 하면서 기싸움 하셔도 되고, 건물 내 시설 이용하셔도 되고… 이야기는 자유롭게 진행해주세요.</span>
-          <span class="en">6. Skip ahead after the day's main event, spend the night drinking and sizing each other up, wander the house — take the story wherever you like.</span>
-        </li>
-        <li>
-          <span class="ko">7. 방송 종료 후 후속 방송도 있습니다.</span>
-          <span class="en">7. There is a follow-up show after the broadcast ends.</span>
-        </li>
+        <li>0. 누가 누구의 X인지, 그리고 각 캐릭터의 이야기를 알아가봅시당</li>
+        <li>1. <span class="c">오신우</span>의 나이는 28, 출연진 나이대는 26 ~ 33입니다.</li>
+        <li>2. 기억력을 위해 유저노트에 이야기 진행 정리 하시는 걸 추천드립니다😢<br>또한 캐릭터의 정보를 알게된다면, 비활성화된 유저노트를 하나 만드셔서 메모하시는 것을 추천드립니다.</li>
+        <li>3. HL, BL, GL 모두 가능. 모든 캐릭터는 바이섹슈얼입니다!<br>다만 공략 불가능 캐릭터가 있습니다. 해당 캐릭터 이름은 <span class="spoiler" tabindex="0">백이준입니다. 관련 지침을 열심히 넣었으나, 혹시라도 이준이 공략이 된다면 캐붕입니다.</span></li>
+        <li>4. 진짜 방송처럼 만들고 싶었기 때문에, 명령어 적극 사용 권장드립니다. <b>특히 &lt;메세지 출력&gt; 명령어는 매일 저녁 8시에 꼭 사용해주세요.</b> 명령어도 서사의 일부랍니다.</li>
+        <li>5. 모든 상황은 녹화중이나, 건물 뒤 공터에만은 카메라가 없습니다.</li>
+        <li>6. 그날 메인 이벤트 보시고 시간&amp;날짜 넘기셔도 되고, 밤에 술자리 하면서 기싸움 하셔도 되고, 건물 내 시설 이용하셔도 되고… 이야기는 자유롭게 진행해주세요.</li>
+        <li>7. 방송 종료 후 후속 방송도 있습니다.</li>
+      </ul>
+    </div>
+
+    <!-- CAUTION EN -->
+    <div class="tab-panel tp3 en">
+      <div class="ptitle">CAUTION</div>
+      <ul>
+        <li>0. Work out who belongs to whom, and let each character's story come to you.</li>
+        <li>1. <span class="c">Oh Shin-woo</span> is 28. The cast ranges from 26 to 33.</li>
+        <li>2. For the sake of memory, I'd keep a running summary in your User Note 😢<br>And once you learn something about a character, make a second, disabled User Note to jot it down.</li>
+        <li>3. HL, BL, GL — all on the table. Every character is bisexual!<br>That said, one of them cannot be romanced. That character is <span class="spoiler" tabindex="0">Baek Yi-jun. I put a lot of work into the guardrails, but if he does fall for you, that's him breaking character.</span></li>
+        <li>4. I wanted this to feel like an actual broadcast, so please lean on the commands. <b>Especially &lt;메세지 출력&gt; at 8 PM every night.</b> The commands are part of the story.</li>
+        <li>5. Everything is being filmed — everywhere except the lot behind the house.</li>
+        <li>6. Watch the day's main event and skip ahead, stay up drinking and needling each other, wander the house — take the story wherever you like.</li>
+        <li>7. There's a follow-up show once the broadcast wraps.</li>
       </ul>
     </div>
   </div>
@@ -695,9 +659,10 @@
   <div class="footer">
     <div class="rw">◀◀</div>
     REPLAY<br>
-    <span class="ko">다시 만나시겠습니까?</span><span class="en">Shall we meet again?</span>
+    <span class="ko">다시 만나시겠습니까?</span><span class="en">Care to meet again?</span>
   </div>
 
+</div>
 </div>
 </body>
 </html>
