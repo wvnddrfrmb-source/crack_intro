@@ -30,14 +30,20 @@
   .wrap{max-width:420px;margin:0 auto;padding:48px 20px 80px}
 
   /* ---------- section label ---------- */
-
-  .sec-label::before,.sec-label::after{content:"—";margin:0 10px;color:var(--line)}
   .wrap > .sec-label:first-child{margin-top:0}
   .sec-label{
     font-size:9px;color:var(--faint);letter-spacing:.35em;
     text-transform:uppercase;text-align:center;margin:64px 0 20px;
   }
   .sec-label::before,.sec-label::after{content:"—";margin:0 10px;color:var(--line)}
+
+  /* ---------- audio ---------- */
+  .music{
+    display:flex;flex-direction:column;align-items:center;
+    color:#8b9096;font-size:10px;margin:0 0 24px;
+  }
+  .music p{margin:0 0 8px}
+  .music audio{max-width:100%}
 
   /* ---------- phone ---------- */
   .phone{
@@ -59,6 +65,7 @@
     width:30px;height:30px;border-radius:50%;
     background:linear-gradient(135deg,#b3452f,#e07a52);
     display:flex;align-items:center;justify-content:center;font-size:13px;
+    flex:none;
   }
   .msg-header .name{font-size:13px;font-weight:500}
   .msg-header .sub{font-size:9px;color:var(--faint)}
@@ -192,22 +199,31 @@
     width:34px;height:34px;border:1.5px solid rgba(190,60,80,.55);border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     color:rgba(190,60,80,.75);font-size:9px;letter-spacing:.05em;
-    transform:rotate(-12deg);
+    transform:rotate(-12deg);flex:none;
   }
 
   /* ---------- cast ---------- */
   .cast-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px}
-  .cast{display:flex;flex-direction:column;gap:8px}
+  .cast{display:flex;flex-direction:column;gap:8px;min-width:0}
   .cast.solo{grid-column:1/-1;width:calc(50% - 7px);margin:0 auto}
   .cast .photo{
     aspect-ratio:3/4;border-radius:4px;border:1px solid var(--line);
     position:relative;overflow:hidden;
     display:flex;align-items:center;justify-content:center;
   }
-  .cast .photo .glyph{font-size:26px;opacity:.85;filter:grayscale(.15)}
+  .cast .photo .glyph{
+    position:absolute;inset:0;
+    display:block;font-size:26px;opacity:.9;
+  }
+  .cast .photo img{
+    width:100%;height:100%;
+    object-fit:cover;object-position:center 18%;
+    display:block;
+  }
   .cast .photo .no{
-    position:absolute;top:8px;left:10px;font-size:9px;color:rgba(232,228,234,.5);
-    letter-spacing:.2em;
+    position:absolute;top:8px;left:10px;font-size:9px;
+    color:rgba(232,228,234,.75);letter-spacing:.2em;z-index:2;
+    text-shadow:0 1px 3px rgba(0,0,0,.7);
   }
   .p1{background:linear-gradient(165deg,#26202a,#171319 70%,#20161a)}
   .p2{background:linear-gradient(165deg,#2a2226,#171319 70%,#1c1620)}
@@ -251,19 +267,20 @@
 </head>
 <body>
 <div class="wrap">
-<div style="display:flex; flex-direction:column; align-items:center; color:#8b9096; font-size:0.8rem; margin:0px 0 24px;"><p style="margin:0 0 8px;"><br>♬ AI로 생성한 음악입니다. ♬</p><audio src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/first-date.mp3" controls></audio></div>
+
+  <div class="music">
+    <p>♬ AI로 생성한 음악입니다. ♬</p>
+    <audio src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/first-date.mp3" controls></audio>
+  </div>
+
   <!-- ============ STORY ============ -->
   <div class="sec-label">PROLOGUE</div>
   <div class="story">
     <p>2년 3개월. <em>오신우</em>와의 깨붙 2회를 곁들인 인생 최대의 낭비였다.</p>
-
-<p>새벽 세 시의 바다를 기억한다. “드라이브 가자”는 말 한마디에 끌려간 밤이었다. 파도 소리, 차가운 모래, 그리고 {{user}}를 바라보던 신우의 녹아내리는 듯한 눈빛. 하지만 그뿐이었다.</p>
-
+    <p>새벽 세 시의 바다를 기억한다. “드라이브 가자”는 말 한마디에 끌려간 밤이었다. 파도 소리, 차가운 모래, 그리고 {{user}}를 바라보던 신우의 녹아내리는 듯한 눈빛. 하지만 그뿐이었다.</p>
     <p>데이트 중에 울리는 전화를 한 번도 거절하지 않는 남자. 서운하다고 말하면 사과 대신 웃으며 안아버리는 남자. 그리고 그 옆엔 항상 <em>현지수</em>가 있었다.</p>
-
-<p>첫 번째 이별은 신우가 지수와 둘이 새벽까지 술을 마신 날이었다. 두 번째는 1주년 기념일—신우는 그 날 지수가 낀 단체 모임에 있었다. 매번 자신을 달래러 오는 신우를 {{user}}는 마지막으로 용서해주기로 했었다.</p>
-
-<p>"걔는 그냥 친구라니까. 너 나 의심해?" — 몸이 아프다는 지수의 연락을 받고 신우는 그 자리를 박차고 나갔고, {{user}}는 이들과 두 번 다시 엮이고 싶지 않았다.</p>
+    <p>첫 번째 이별은 신우가 지수와 둘이 새벽까지 술을 마신 날이었다. 두 번째는 1주년 기념일—신우는 그 날 지수가 낀 단체 모임에 있었다. 매번 자신을 달래러 오는 신우를 {{user}}는 마지막으로 용서해주기로 했었다.</p>
+    <p>"걔는 그냥 친구라니까. 너 나 의심해?" — 몸이 아프다는 지수의 연락을 받고 신우는 그 자리를 박차고 나갔고, {{user}}는 이들과 두 번 다시 엮이고 싶지 않았다.</p>
     <p class="beat">···</p>
     <p>그런데 이 새끼가 <em>배우</em>를 한단다.</p>
     <p>찾아보니 지수는 팔로워 몇십만짜리 인플루언서가 되어 있었다. {{user}}는 제 2년을 밟고 지나간 두 사람이 나란히 잘 풀리는 그림을 두고 볼 수 없었다.</p>
@@ -330,37 +347,37 @@
   <div class="sec-label">CAST</div>
   <div class="cast-grid">
     <div class="cast">
-      <div class="photo p1"><span class="no">CAST 01</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3278.jpeg"></span></div>
+      <div class="photo p1"><span class="no">CAST 01</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3278.jpeg" alt="송무겸"></span></div>
       <div class="name">🐹송무겸</div>
       <div class="tags"><span>#다정</span><span>#안정감</span><span>#골초</span></div>
     </div>
     <div class="cast">
-      <div class="photo p2"><span class="no">CAST 02</span><span class="glyph"> <img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3276.jpeg"> </span></div>
+      <div class="photo p2"><span class="no">CAST 02</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3276.jpeg" alt="정해담"></span></div>
       <div class="name">🐻정해담</div>
       <div class="tags"><span>#무뚝뚝</span><span>#행동파</span><span>#계획형</span></div>
     </div>
     <div class="cast">
-      <div class="photo p3"><span class="no">CAST 03</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3277.jpeg"></span></div>
+      <div class="photo p3"><span class="no">CAST 03</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3277.jpeg" alt="윤소이"></span></div>
       <div class="name">🐭윤소이</div>
       <div class="tags"><span>#물음표살인마</span><span>#눈치백단</span><span>#허당</span></div>
     </div>
     <div class="cast">
-      <div class="photo p4"><span class="no">CAST 04</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3279.jpeg"></span></div>
+      <div class="photo p4"><span class="no">CAST 04</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3279.jpeg" alt="오신우"></span></div>
       <div class="name">🦊오신우</div>
       <div class="tags"><span>#인싸</span><span>#능글</span><span>#경계흐림</span></div>
     </div>
     <div class="cast">
-      <div class="photo p5"><span class="no">CAST 05</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3275.jpeg"></span></div>
+      <div class="photo p5"><span class="no">CAST 05</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3275.jpeg" alt="백이준"></span></div>
       <div class="name">🐱백이준</div>
       <div class="tags"><span>#감정표현</span><span>#질투</span><span>#직진</span></div>
     </div>
     <div class="cast">
-      <div class="photo p6"><span class="no">CAST 06</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3280.jpeg"></span></div>
+      <div class="photo p6"><span class="no">CAST 06</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3280.jpeg" alt="공시안"></span></div>
       <div class="name">🐶공시안</div>
       <div class="tags"><span>#저전력</span><span>#너드</span><span>#마이웨이</span></div>
     </div>
     <div class="cast solo">
-      <div class="photo p7"><span class="no">CAST 07</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3281.jpeg"></span></div>
+      <div class="photo p7"><span class="no">CAST 07</span><span class="glyph"><img src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/IMG_3281.jpeg" alt="현지수"></span></div>
       <div class="name">🐰현지수</div>
       <div class="tags"><span>#분위기메이커</span><span>#주인공</span><span>#여우</span></div>
     </div>
@@ -380,7 +397,7 @@
       <li>SNS 계정 및 개인 연락처를 교환하지 않는다.</li>
       <li>최종 선택은 성별과 관계없이 가능하다.</li>
       <li>매일 아침 10시 전에 기상한다.</li>
-<li>매일 저녁 8시, '오늘 마음에 든 단 한 사람'에게 익명 메세지를 전송한다.</li>
+      <li>매일 저녁 8시, '오늘 마음에 든 단 한 사람'에게 익명 메세지를 전송한다.</li>
     </ol>
     <div class="rb-foot">
       <span>서명 후 입소일에 지참할 것</span>
