@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>북부대공령 — 카르티아 제국</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+  --ink:       #111318;
+  --parchment: #ede5d0;
+  --dim:       #9a9080;
+  --gold:      #8a6e3a;
+  --silver:    #a0acb4;
+  --border:    rgba(160,172,180,0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ink);
+  color: var(--parchment);
+  font-size: 13px;
+  line-height: 1;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+}
+
+.anchor {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ── 슬라이더 ── */
+.slider {
+  height: 440px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stars-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, rgba(200,216,228,0.55) 0%, transparent 100%),
+    radial-gradient(1px 1px at 28% 8%,  rgba(200,216,228,0.35) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 42% 12%, rgba(200,216,228,0.65) 0%, transparent 100%),
+    radial-gradient(1px 1px at 58% 5%,  rgba(200,216,228,0.40) 0%, transparent 100%),
+    radial-gradient(1px 1px at 72% 14%, rgba(200,216,228,0.50) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 85% 20%, rgba(200,216,228,0.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 93% 9%,  rgba(200,216,228,0.30) 0%, transparent 100%),
+    radial-gradient(1px 1px at 6%  25%, rgba(200,216,228,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 19% 30%, rgba(200,216,228,0.20) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 22%, rgba(200,216,228,0.30) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 67% 28%, rgba(200,216,228,0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 78% 32%, rgba(200,216,228,0.22) 0%, transparent 100%),
+    radial-gradient(1px 1px at 91% 24%, rgba(200,216,228,0.28) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.slide {
+  display: none;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
+  animation: fadeIn 0.4s ease;
+  z-index: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.slide-p1 { display: flex; }
+
+#p1:target ~ .wrap .slide-p1,
+#p2:target ~ .wrap .slide-p2,
+#p3:target ~ .wrap .slide-p3,
+#p4:target ~ .wrap .slide-p4,
+#p5:target ~ .wrap .slide-p5,
+#p6:target ~ .wrap .slide-p6,
+#p7:target ~ .wrap .slide-p7,
+#p8:target ~ .wrap .slide-p8,
+#p9:target ~ .wrap .slide-p9 { display: flex; }
+
+#p2:target ~ .wrap .slide-p1,
+#p3:target ~ .wrap .slide-p1,
+#p4:target ~ .wrap .slide-p1,
+#p5:target ~ .wrap .slide-p1,
+#p6:target ~ .wrap .slide-p1,
+#p7:target ~ .wrap .slide-p1,
+#p8:target ~ .wrap .slide-p1,
+#p9:target ~ .wrap .slide-p1 { display: none; }
+
+/* ── CRESCENT ── */
+.crescent {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  margin: 1rem auto 5rem;
+}
+.crescent-body {
+  position: absolute;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background-color: transparent;
+  box-shadow: 4px 2px 0px 0px #857c6d;
+}
+.crescent-back {
+  position: absolute;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background-color: #101318;
+  top: 2px; left: 4px;
+}
+
+/* ── CHAPTER ── */
+.chapter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+.chapter-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chapter-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── PROSE ── */
+.prose {
+  font-size: 0.9rem;
+  line-height: 2.1;
+  color: #a09888;
+}
+.prose p + p { margin-top: 1.1rem; }
+.prose .line { color: #c0b8a8; }
+.prose .user-line { color: var(--gold); }
+
+/* ── 쪽지 ── */
+.note {
+  margin: 2rem 0;
+  filter: drop-shadow(0 4px 20px rgba(0,0,0,0.55));
+}
+.note-inner {
+  background: #d4c9a8;
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(255,248,220,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(180,160,110,0.3) 0%, transparent 50%);
+  padding: 1.8rem 2rem 2.4rem;
+  position: relative;
+  border-radius: 2px;
+}
+.note-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 27px,
+    rgba(160,140,90,0.12) 27px, rgba(160,140,90,0.12) 28px
+  );
+  pointer-events: none;
+}
+.note-text {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 1.7rem;
+  color: #3a2e1a;
+  line-height: 1.9;
+  position: relative;
+  z-index: 1;
+}
+.note-from {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 1rem;
+  color: #5a4a28;
+  text-align: right;
+  padding-right: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 가십지 ── */
+.gazette {
+  width: 100%;
+  height: 450px;
+  padding: 0.8rem 1.2rem 0.7rem;
+  background: #f0e8cc;
+  background-image:
+    radial-gradient(ellipse at 10% 0%, rgba(255,252,230,0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 100%, rgba(180,160,100,0.25) 0%, transparent 50%);
+  color: #1a1408;
+  font-family: 'Cormorant Garamond', serif;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.gazette::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 22px,
+    rgba(140,120,70,0.07) 22px, rgba(140,120,70,0.07) 23px
+  );
+  pointer-events: none;
+}
+.gazette-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.44rem;
+  letter-spacing: 0.2em;
+  color: #7a6540;
+  padding-bottom: 0.25rem;
+}
+.gazette-rule       { height: 1px; background: #5a4a28; margin: 0.22rem 0; flex-shrink: 0; }
+.gazette-rule.thick { height: 4px; background: #3a2e1a; margin: 0.18rem 0; }
+.gazette-rule.thin  { height: 1px; background: rgba(90,74,40,0.3); margin: 0.2rem 0; }
+.gazette-flag { text-align: center; padding: 0.15rem 0; }
+.gazette-flag-name {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #1a1408;
+  text-transform: uppercase;
+  line-height: 1;
+  padding-bottom: 0.3rem;
+}
+.gazette-flag-sub {
+  display: block;
+  font-size: 0.42rem;
+  letter-spacing: 0.45em;
+  color: #7a6540;
+  margin-top: 0.2rem;
+  text-transform: uppercase;
+}
+.gazette-headline {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #100c04;
+  text-align: center;
+  margin: 0.2rem 0 0.1rem;
+}
+.gazette-sub {
+  font-size: 0.58rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: #4a3e22;
+  text-align: center;
+}
+.gazette-cols {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0 0.7rem;
+  flex: 1;
+  margin: 0.25rem 0;
+  min-height: 0;
+}
+.gazette-col-div { background: rgba(90,74,40,0.3); }
+.gazette-body {
+  font-size: 0.72rem;
+  line-height: 1.85;
+  color: #2e2610;
+}
+.gazette-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.44rem;
+  letter-spacing: 0.04em;
+  color: #8a7a50;
+  padding-top: 0.2rem;
+}
+.gazette-sold {
+  font-weight: 700;
+  color: #7a3018;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+/* ── 서신 ── */
+.letter {
+  margin: 1.8rem 0;
+  border: 1px solid var(--border);
+  padding: 1.6rem 1.8rem;
+  background: rgba(255,255,255,0.015);
+}
+.letter-header {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.letter-body {
+  font-size: 0.82rem;
+  line-height: 2.1;
+  color: #807870;
+}
+
+.ornament {
+  color: var(--gold);
+  font-size: 0.55rem;
+  letter-spacing: 0.6em;
+  margin-bottom: 1.4rem;
+  opacity: 0.45;
+  text-align: center;
+}
+
+/* ── NAV ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0 0;
+}
+.nav-set { display: none; }
+.nav-set.nav-p1 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+#p1:target ~ .wrap .nav .nav-set { display: none; }
+#p1:target ~ .wrap .nav .nav-p1 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+#p2:target ~ .wrap .nav .nav-set { display: none; }
+#p2:target ~ .wrap .nav .nav-p2 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+#p3:target ~ .wrap .nav .nav-set { display: none; }
+#p3:target ~ .wrap .nav .nav-p3 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+#p4:target ~ .wrap .nav .nav-set { display: none; }
+#p4:target ~ .wrap .nav .nav-p4 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+#p5:target ~ .wrap .nav .nav-set { display: none; }
+#p5:target ~ .wrap .nav .nav-p5 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+#p6:target ~ .wrap .nav .nav-set { display: none; }
+#p6:target ~ .wrap .nav .nav-p6 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+#p7:target ~ .wrap .nav .nav-set { display: none; }
+#p7:target ~ .wrap .nav .nav-p7 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+#p8:target ~ .wrap .nav .nav-set { display: none; }
+#p8:target ~ .wrap .nav .nav-p8 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+#p9:target ~ .wrap .nav .nav-set { display: none; }
+#p9:target ~ .wrap .nav .nav-p9 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  color: var(--silver);
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+.nav-btn.disabled { opacity: 0.2; pointer-events: none; }
+.page-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.35em;
+  color: var(--dim);
+}
+.page-num .cur { color: var(--gold); }
+
+/* ══
+   캐릭터 카드
+══ */
+
+.chars-section {
+  padding: 3rem 0 4rem;
+  border-top: 1px solid var(--border);
+}
+
+.chars-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.chars-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.chars-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-toggle { display: none; }
+
+.card {
+  display: block;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* 앞면: 기본 보임 */
+.card-front {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* 뒷면: 기본 숨김 */
+.card-back {
+  display: none;
+  flex-direction: column;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.card-toggle:checked + .card .card-front { display: none; }
+.card-toggle:checked + .card .card-back  { display: flex; }
+
+/* ── 앞면 상단: 사진 + 이름 ── */
+.card-top {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+}
+
+.card-img {
+  width: 100px;
+  aspect-ratio: 3 / 4;
+  background: rgba(255,255,255,0.04);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(160,172,180,0.12);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.card-header {
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--parchment);
+  line-height: 1.2;
+}
+.card-name-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  font-style: italic;
+font-weight: 700;
+}
+.card-role {
+  font-size: 0.7rem;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin-top: 0.1rem;
+}
+
+.card-hint {
+  font-size: 0.75rem;
+  color: #5a6;
+  margin-left: auto;
+  margin-top: auto;
+  padding-top: 0.8rem;
+}
+
+
+/* ── 앞면 설명 ── */
+.card-desc {
+  padding: 0.85rem 1.1rem;
+  font-size: 0.84rem;
+  line-height: 1.85;
+  color: #807870;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── 태그 ── */
+.card-keywords {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  padding: 0.55rem 1rem;
+}
+.card-kw {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  border: 1px solid rgba(138,110,58,0.25);
+  padding: 0.2rem 0.55rem;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+/* ── 뒷면 ── */
+.card-back-top {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-back-header {
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.card-back-body {
+  padding: 0.85rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-back-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.card-back-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.card-back-text {
+  font-size: 0.84rem;
+  line-height: 1.75;
+  color: #807870;
+}
+
+.extras-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.extra-card {
+  width: calc(50% - 0.5rem);
+}
+
+.extra-card:last-child:nth-child(odd) {
+  margin: 0 auto;
+}
+
+.extra-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* 가로 → 세로 전환 핵심 */
+.extra-top {
+  display: block;
+}
+
+/* 이미지 위 */
+.extra-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: rgba(255,255,255,0.04);
+  overflow: hidden;
+}
+.extra-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+/* 헤더 (폰트 유지) */
+.extra-header {
+  padding: 0.7rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.extra-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--parchment);
+  line-height: 1.2;
+}
+
+.extra-name-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  font-style: italic;
+  font-weight: 700;
+}
+
+.extra-role {
+  font-size: 0.48rem;
+  color: var(--dim);
+  margin-top: 0.1rem;
+}
+
+/* 설명 */
+.extra-desc {
+  padding: 0.6rem 0.9rem 0.7rem;
+  font-size: 0.68rem;
+  line-height: 1.75;
+  color: #706860;
+  border-top: 1px solid var(--border);
+}
+
+</style>
+</head>
+<body>
+
+<div style="display:flex; flex-direction:column; align-items:center; color:#8b9096; font-size:0.8rem; margin:16px 0 32px;"><p><br>♬ AI로 생성한 음악입니다. ♬</p><br><audio src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/dust-in-the-lydian.MP3" controls></audio></div>
+
+<span id="p1" class="anchor"></span>
+<span id="p2" class="anchor"></span>
+<span id="p3" class="anchor"></span>
+<span id="p4" class="anchor"></span>
+<span id="p5" class="anchor"></span>
+<span id="p6" class="anchor"></span>
+<span id="p7" class="anchor"></span>
+<span id="p8" class="anchor"></span>
+<span id="p9" class="anchor"></span>
+
+<div class="wrap">
+  <div class="slider">
+    <div class="stars-bg"></div>
+
+    <!-- PAGE 1 -->
+    <div class="slide slide-p1">
+      <div class="crescent">
+        <div class="crescent-back"></div>
+        <div class="crescent-body"></div>
+      </div>
+      <div class="chapter">
+        <span class="chapter-num">438년 가을</span>
+        <div class="chapter-line"></div>
+      </div>
+      <div class="prose">
+<p>약혼자가 사라졌다.</p>
+        <p>레나르 카엘리우스.<br>카엘리우스 가의 소공작, 가장 유력한 차기 마탑주 후보, 세기의 천재, 청초한 미모와 괴팍한 성정, 기행을 일삼는 괴짜.</p>
+        <p>그리고 {{user}}의 약혼자. 였다.<br><span style="color: #666; font-size: 0.75rem;">[▶]를 눌러 페이지 넘기기</span></p>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="slide slide-p2">
+      <div class="prose">
+        <p>그가 남긴 건 쪽지 한 장이었다.</p>
+      </div>
+      <div class="note">
+        <div class="note-inner">
+          <p class="note-text">크라켄을 잡으러 간다.</p>
+          <span class="note-from">— Lenar M. Kaelius</span>
+        </div>
+      </div>
+<div class="prose">
+<p>안부도, 사과도, 설명도 없이. 그를 칭하는 무수한 이명과는 다르게, 문장만큼은 간결했다.</p>
+</div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="slide slide-p3">
+      <div class="prose">
+        <p>크라켄은 고대 기록에나 등장하는 이름이었다. 학자들 사이에서도 신화적 과장으로 분류되는 존재. 유니콘이 실존하고 노룡이 곳곳에 은거하는 세계에서도, 크라켄만큼은 허황된 뱃사람의 전설 취급을 받았다.</p>
+        <p>그 크라켄을 잡겠다고 차기 마탑주가 잠적했고, 수도는 발칵 뒤집혔다.</p>
+      </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="slide slide-p4">
+      <div class="gazette">
+        <div class="gazette-top">
+          <span>제국력 438년 봄호</span>
+          <span>티아레 전 서점 취급</span>
+          <span>동전 2닢</span>
+        </div>
+        <div class="gazette-rule thick"></div>
+        <div class="gazette-flag">
+          <span class="gazette-flag-name">The Golden Quill</span>
+          <span class="gazette-flag-sub">알 권리는 시민의 것 · 제국 수도 최대 발행부수</span>
+        </div>
+        <div class="gazette-rule thick"></div>
+        <p class="gazette-headline">【속보】 차기 마탑주 증발</p>
+        <div class="gazette-rule thin"></div>
+        <p class="gazette-sub">카엘리우스 소공작 실종 · 마탑주 충격… 사유는 '크라켄' · <황금 깃펜> 제 88호 초판 2시간 만에 완전 소진</p>
+        <div class="gazette-rule"></div>
+        <div class="gazette-cols">
+          <p class="gazette-body">이른 새벽 북항을 통해 홀연히 종적을 감춘 레나르 카엘리우스 소공작. 남긴 것은 쪽지 한 장. 내용은 다음과 같다: "크라켄을 잡으러 간다." 이상 전문.</p>
+          <div class="gazette-col-div"></div>
+          <p class="gazette-body">마탑주는 공식 입장을 아직 내놓지 못했으며, 카엘리우스 가는 침묵 중이다.<br>후속 기사를 기대해 주세요! (크라켄 관련 목격담, 제보 환영. 진위 불문.)</p>
+        </div>
+        <div class="gazette-rule"></div>
+        <div class="gazette-foot">
+          <span>편집장 H. 발렌티아 · 제88호</span>
+          <span class="gazette-sold">★ 현재 3판 증쇄 중 — 품절 주의 ★</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div class="slide slide-p5">
+      <div class="prose">
+        <p>{{user}}의 아버지인 에델하르트 공작은 서재에서 사흘간 나오지 않다가 자식을 불러 입을 열었다.</p>
+        <p><span class="line">"쓸모없는 년."</span></p>
+        <p>아버지의 말은, 뭐… 딱히 새롭지 않았다. 레나르가 크라켄잡이 배를 타고 떠난 것과 자신의 쓸모가 어떤 상관관계를 갖는지는 — 분노한 아버지 앞에서 굳이 입 밖에 낼 질문이 아니었다. {{user}}는 창가에 앉아 정원을 바라보며 생각했다.</p>
+        <p>'이번 생에 결혼은 글렀구나.'</p>
+      </div>
+    </div>
+
+    <!-- PAGE 6 -->
+    <div class="slide slide-p6">
+      <div class="prose">
+        <p>레나르는 재능이 넘치는 남자였으며, 처음부터 끝까지 자기 세계 안에서만 살던 사람이었다. 정혼 관계였지만 제대로 된 대화를 나눈 기억이 손에 꼽는다. 그가 사라진 것보다 이 소동이 잦아드는 데 얼마나 걸릴지가 더 걱정이었다.</p>
+        <p>당연하게도, 작정하고 튄 천재 마법사를 찾아낼 수 있는 사람은 아무도 없었다.</p>
+        <p>그리고 몇달 뒤. 북쪽에서 서신이 도착했다.</p>
+      </div>
+    </div>
+
+    <!-- PAGE 7 -->
+    <div class="slide slide-p7">
+      <div class="ornament">— ◆ ◇ ◆ —</div>
+      <div class="chapter">
+        <span class="chapter-num">북쪽에서 온 서신</span>
+        <div class="chapter-line"></div>
+      </div>
+      <div class="prose">
+        <p>에델하르트 공작이 {{user}}을 서재로 불렀을 때, 그의 표정은 묘하게 복잡했다.</p>
+        <p><span class="line">"베스퍼 대공께서 혼담을 요청하셨다."</span></p>
+      </div>
+    </div>
+
+    <!-- PAGE 8 -->
+    <div class="slide slide-p8">
+      <div class="letter">
+        <p class="letter-header">서신 요지 · 북부대공령 베스퍼</p>
+        <p class="letter-body">북부대공 오스발트 베스퍼는 은퇴를 앞두고 있다. 후계자인 대공자를 결혼시키고 작위를 이양하려 했으나, 티아레(제국의 수도)의 어떤 가문도 자식을 북쪽으로 보내려 하지 않았다. 이유는 단순했다: 치외법권이나 다름없는 땅, 춥고, 멀고, 매달 음력 초하루인 삭월마다 몬스터 웨이브가 터진다. 게다가 대공자는 평민 출신의 입양아였다.</p>
+      </div>
+    </div>
+
+    <!-- PAGE 9 -->
+    <div class="slide slide-p9">
+      <div class="prose">
+        <p>에델하르트 공작은 이미 한 번 약혼이 파기된 자식을 다시 결혼 시장에 내놓는 것이 쉽지 않다는 것을 알고 있었다. 레나르의 실종 사건은 에델하르트 공작가에도 흠집을 남겼기에.</p>
+        <p>{{user}}는 서신을 내려다보다 고개를 들었다. 화려한 수도보다 조용할 것 같았고, 어쩐지 나쁘지 않았다. 그래서 {{user}}는 즉각 답했다.</p>
+        <p><span class="user-line">"하겠습니다."</span></p>
+      </div>
+    </div>
+
+  </div><!-- /slider -->
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-set nav-p1">
+      <span class="nav-btn disabled">◀</span>
+      <span class="page-num"><span class="cur">1</span> / 9</span>
+      <a class="nav-btn" href="#p2">▶</a>
+    </div>
+    <div class="nav-set nav-p2">
+      <a class="nav-btn" href="#p1">◀</a>
+      <span class="page-num"><span class="cur">2</span> / 9</span>
+      <a class="nav-btn" href="#p3">▶</a>
+    </div>
+    <div class="nav-set nav-p3">
+      <a class="nav-btn" href="#p2">◀</a>
+      <span class="page-num"><span class="cur">3</span> / 9</span>
+      <a class="nav-btn" href="#p4">▶</a>
+    </div>
+    <div class="nav-set nav-p4">
+      <a class="nav-btn" href="#p3">◀</a>
+      <span class="page-num"><span class="cur">4</span> / 9</span>
+      <a class="nav-btn" href="#p5">▶</a>
+    </div>
+    <div class="nav-set nav-p5">
+      <a class="nav-btn" href="#p4">◀</a>
+      <span class="page-num"><span class="cur">5</span> / 9</span>
+      <a class="nav-btn" href="#p6">▶</a>
+    </div>
+    <div class="nav-set nav-p6">
+      <a class="nav-btn" href="#p5">◀</a>
+      <span class="page-num"><span class="cur">6</span> / 9</span>
+      <a class="nav-btn" href="#p7">▶</a>
+    </div>
+    <div class="nav-set nav-p7">
+      <a class="nav-btn" href="#p6">◀</a>
+      <span class="page-num"><span class="cur">7</span> / 9</span>
+      <a class="nav-btn" href="#p8">▶</a>
+    </div>
+    <div class="nav-set nav-p8">
+      <a class="nav-btn" href="#p7">◀</a>
+      <span class="page-num"><span class="cur">8</span> / 9</span>
+      <a class="nav-btn" href="#p9">▶</a>
+    </div>
+    <div class="nav-set nav-p9">
+      <a class="nav-btn" href="#p8">◀</a>
+      <span class="page-num"><span class="cur">9</span> / 9</span>
+      <span class="nav-btn disabled">▶</span>
+    </div>
+  </nav>
+<br>
+   <div class="chars-section">
+    <div class="ornament">— ◆ ◇ ◆ —</div>
+<br><br>
+    <div class="chars-grid">
+
+      <!-- CARD 1: 크헤트 -->
+      <input type="checkbox" id="card1" class="card-toggle">
+      <label for="card1" class="card">
+        <!-- 앞면 -->
+        <div class="card-front">
+          <div class="card-top">
+            <div class="card-img">
+  <img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/ff282ec5-7e1e-414c-b53e-4b8e077ccfa5.jpeg" alt="">
+</div>
+            <div class="card-header">
+              <div class="card-name">크헤트 베스퍼</div>
+              <div class="card-name-en">Khedt Vesper</div>
+<span class="card-hint">Tap ↺</span>
+            </div>
+          </div>
+          <div class="card-desc">베스퍼 대공의 양자. 열세 살부터 오러를 사용한, 카르티아 제국 역사상 최연소 소드마스터. {{user}}에 대한 관심은 현재 거의 없다. 지금 그에게 중요한 것은 다음 삭월 몬스터 웨이브의 준비뿐.</div>
+          <div class="card-keywords">
+            <span class="card-kw">소드마스터</span>
+            <span class="card-kw">무관심</span>
+            <span class="card-kw">북부</span>
+          </div>
+        </div>
+        <!-- 뒷면 -->
+        <div class="card-back">
+          <div class="card-back-top">
+            <div class="card-img">
+  <img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/522b3a9d-b801-45e2-a9e6-e5853e9d6166.png" alt="">
+</div>
+            <div class="card-back-header">
+              <div class="card-name">크헤트 베스퍼</div>
+              <div class="card-name-en">Khedt Vesper</div>
+              <div class="card-role">대공자 / 28세</div>
+            </div>
+          </div>
+          <div class="card-back-body">
+            <div class="card-back-section">
+              <div class="card-back-label">외모 · 체형</div>
+              <div class="card-back-text">짧은 흑발, 새카만 눈동자, 거구. 왼눈 상흔·실명, 검정 안대에 금빛 자수.</div>
+            </div>
+            <div class="card-back-section">
+              <div class="card-back-label">전투</div>
+              <div class="card-back-text">롱소드 + 방패</div>
+            </div>
+            <div class="card-back-section">
+              <div class="card-back-label">출신</div>
+              <div class="card-back-text">피얄 토착민 출신. 오스발트 베스퍼 대공이 입양했다.</div>
+            </div>
+          </div>
+          <div class="card-keywords">
+            <span class="card-kw">소드마스터</span>
+            <span class="card-kw">무관심</span>
+            <span class="card-kw">북부</span>
+          </div>
+        </div>
+      </label>
+
+      <!-- CARD 2: 진 메르텐 -->
+      <input type="checkbox" id="card2" class="card-toggle">
+      <label for="card2" class="card">
+        <div class="card-front">
+          <div class="card-top">
+            <div class="card-img">
+  <img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/017a0b9a-1eb7-45d4-baa8-4b7142f98047.png" alt="">
+</div>
+            <div class="card-header">
+              <div class="card-name">진 메르텐</div>
+              <div class="card-name-en">Xynn Merten</div>
+<span class="card-hint">Tap ↺</span>
+            </div>
+          </div>
+          <div class="card-desc">몰락한 메르텐 가문 출신으로, 다크엘프 혼혈이다. 크헤트를 신뢰하고 따르나, 그가 사회적 맥락을 무시하는 순간들은 솔직히 한심하다고 생각한다. {{user}}를 처음 봤을 때 뭔가가… 아니, 그런 건 없다. 부관이라는 스스로의 위치를 상당히 의식하는 편이다.</div>
+          <div class="card-keywords">
+            <span class="card-kw">부관</span>
+            <span class="card-kw">다크엘프</span>
+            <span class="card-kw">절제</span>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-top">
+            <div class="card-img">
+  <img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/0cb2dc68-415b-4026-8797-0a1067e4324b.png" alt="">
+</div>
+            <div class="card-back-header">
+              <div class="card-name">진 메르텐</div>
+              <div class="card-name-en">Xynn Merten</div>
+              <div class="card-role">크헤트의 부관 / 27세</div>
+            </div>
+          </div>
+          <div class="card-back-body">
+            <div class="card-back-section">
+              <div class="card-back-label">외모 · 체형</div>
+              <div class="card-back-text">흰색에 가까운 은발을 느슨하게 땋아내렸다. 노란 눈동자, 검은 흰자위. 창백한 피부, 체형은 호리호리하지만 크헤트만큼 장신. 짙은 시가 냄새가 난다.</div>
+            </div>
+            <div class="card-back-section">
+              <div class="card-back-label">전투</div>
+              <div class="card-back-text">미늘창. 긴 리치를 살린 전투.</div>
+            </div>
+            <div class="card-back-section">
+              <div class="card-back-label">출신</div>
+              <div class="card-back-text">몰락한 메르텐 가문, 다크엘프 혼혈.</div>
+            </div>
+          </div>
+          <div class="card-keywords">
+            <span class="card-kw">부관</span>
+            <span class="card-kw">다크엘프</span>
+            <span class="card-kw">절제</span>
+          </div>
+        </div>
+      </label>
+
+      <!-- CARD 3: 타르젠 -->
+      <input type="checkbox" id="card3" class="card-toggle">
+      <label for="card3" class="card">
+        <div class="card-front">
+          <div class="card-top">
+            <div class="card-img">
+  <img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/4abeff69-fc46-40d0-905d-ab48e9995f33.jpeg" alt="">
+</div>
+            <div class="card-header">
+              <div class="card-name">타르젠 폰 카르티아</div>
+              <div class="card-name-en">Tarzen von Karthya</div>
+<span class="card-hint">Tap ↺</span>
+            </div>
+          </div>
+          <div class="card-desc">황태자의 견제로 열네 살에 북부로 쫓겨나다시피 온 2황자. 크헤트와 함께 전선을 누볐다. 황궁으로 돌아간 뒤에도 매 삭월마다 포털을 열고 베스퍼 대공령으로 온다. 그는 어쩌면, 황태자가 아닌 자신이 황제가 되기 위한 준비를 하고 있을지도 모른다.</div>
+          <div class="card-keywords">
+            <span class="card-kw">2황자</span>
+            <span class="card-kw">야망</span>
+            <span class="card-kw">즉위</span>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-top">
+            <div class="card-img"> <img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/51cbbfcd-6294-48d3-b853-7931c033c5bb.png" alt="">
+</div>
+            <div class="card-back-header">
+              <div class="card-name">타르젠 폰 카르티아</div>
+              <div class="card-name-en">Tarzen von Karthya</div>
+              <div class="card-role">제국의 2황자 / 28세</div>
+            </div>
+          </div>
+          <div class="card-back-body">
+            <div class="card-back-section">
+              <div class="card-back-label">외모 · 체형</div>
+              <div class="card-back-text">금발, 보라 눈동자. 늘 목까지 올라오는 제복과 장갑을 착용한다.</div>
+            </div>
+            <div class="card-back-section">
+              <div class="card-back-label">전투</div>
+              <div class="card-back-text">츠바이핸더<span style="color: #333;">(독일식 양손검)</span></div>
+            </div>
+            <div class="card-back-section">
+              <div class="card-back-label">출신</div>
+              <div class="card-back-text">14~18세: 황태자에 의해 북부로 추방. 이후 황궁에 돌아가서도 매월 음력 초하루마다 대공령에 지원 중.</div>
+            </div>
+          </div>
+          <div class="card-keywords">
+            <span class="card-kw">2황자</span>
+            <span class="card-kw">야망</span>
+            <span class="card-kw">즉위</span>
+          </div>
+        </div>
+      </label>
+
+      <!-- CARD 4: 단 -->
+      <input type="checkbox" id="card4" class="card-toggle">
+      <label for="card4" class="card">
+        <div class="card-front">
+          <div class="card-top">
+            <div class="card-img"> <img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/c62d4fe2-08fe-4764-83ae-5f3c85e0b73f.png" alt=""> </div>
+            <div class="card-header">
+              <div class="card-name">단</div>
+              <div class="card-name-en">Dan</div>
+<span class="card-hint">Tap ↺</span>
+            </div>
+          </div>
+          <div class="card-desc">토착민 전사들의 젊은 우두머리. 전신에 마법 회로가 새겨져 있다. 손등과 팔, 몸통을 지나 턱과 볼까지 이어진다. 이는 피얄 토착민의 방식대로 어릴 때부터 새겨 나갔다.</div>
+          <div class="card-keywords">
+            <span class="card-kw">토착민</span>
+            <span class="card-kw">회로문신</span>
+            <span class="card-kw">포획전</span>
+          </div>
+        </div>
+        <div class="card-back">
+          <div class="card-back-top">
+            <div class="card-img"> <img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/9f7fa416-72f3-4b5f-b996-794f2ac5a90c.png" alt=""> </div>
+            <div class="card-back-header">
+              <div class="card-name">단</div>
+              <div class="card-name-en">Dan</div>
+              <div class="card-role">북부 토착민 전사 / 23세</div>
+            </div>
+          </div>
+          <div class="card-back-body">
+            <div class="card-back-section">
+              <div class="card-back-label">외모 · 체형</div>
+              <div class="card-back-text">이마를 덮는 잿빛 머리, 붉은 눈동자, 얼굴·목·전신 보라빛 회로 문신. 가죽 갑옷.</div>
+            </div>
+            <div class="card-back-section">
+              <div class="card-back-label">전투</div>
+              <div class="card-back-text">올가미 + 맨손 제압</div>
+            </div>
+            <div class="card-back-section">
+              <div class="card-back-label">출신</div>
+              <div class="card-back-text">피얄 토착민.</div>
+            </div>
+          </div>
+          <div class="card-keywords">
+            <span class="card-kw">토착민</span>
+            <span class="card-kw">회로문신</span>
+            <span class="card-kw">포획전</span>
+          </div>
+        </div>
+      </label>
+
+    </div>
+  </div>
+
+<div class="ornament">— ◆ ◇ ◆ —</div>
+<br>
+<br>
+
+<!-- ══ 엑스트라 캐릭터 ══ -->
+<div class="extras-section">
+  <div class="extras-grid">
+
+    <!-- EXTRA 1 -->
+    <div class="extra-card">
+      <div class="extra-top">
+        <div class="extra-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/bc6585b4-0ba1-4c5f-a16c-1a2e4aaf7979.jpeg" alt=""></div>
+        <div class="extra-header">
+          <div class="extra-name">오스발트 베스퍼</div>
+          <div class="extra-name-en">Oswald Vesper</div>
+        </div>
+      </div>
+      <div class="extra-desc">베스퍼 대공, 57세. 크헤트의 양아버지.</div>
+    </div>
+
+    <!-- EXTRA 2 -->
+    <div class="extra-card">
+      <div class="extra-top">
+        <div class="extra-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/d60da214-7399-4649-a1e0-6ef742d483e3.jpeg" alt=""></div>
+        <div class="extra-header">
+          <div class="extra-name">조이</div>
+          <div class="extra-name-en">Zoe</div>
+        </div>
+      </div>
+      <div class="extra-desc">{{user}} 전담 하녀, 38세. 크헤트의 유모.</div>
+    </div>
+
+    <!-- EXTRA 3 -->
+    <div class="extra-card">
+      <div class="extra-top">
+        <div class="extra-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/f5e8d522-c189-4181-b9e7-67cf20d39122.png" alt=""></div>
+        <div class="extra-header">
+          <div class="extra-name">막스</div>
+          <div class="extra-name-en">Max</div>
+        </div>
+      </div>
+      <div class="extra-desc">만물상점 주인, 말이 많은 드워프.</div>
+    </div>
+
+    <!-- EXTRA 4 -->
+    <div class="extra-card">
+      <div class="extra-top">
+        <div class="extra-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/68f5207e-7f27-417e-ba43-4eba5bc1bced.jpeg" alt=""></div>
+        <div class="extra-header">
+          <div class="extra-name">세르</div>
+          <div class="extra-name-en">Serre</div>
+        </div>
+      </div>
+      <div class="extra-desc">술집 <드런큰 드래곤>의 주인.</div>
+    </div>
+
+    <!-- EXTRA 6 -->
+    <div class="extra-card">
+      <div class="extra-top">
+        <div class="extra-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/df2db181-b8a6-455a-bef7-83822b52d027.png" alt=""></div>
+        <div class="extra-header">
+          <div class="extra-name">루</div>
+          <div class="extra-name-en">Ru</div>
+        </div>
+      </div>
+      <div class="extra-desc">깜찍한 눈여우!</div>
+    </div>
+
+  </div>
+</div>
+<br> <br> <br>
+<div class="ornament">— ◆ ◇ ◆ —</div>
+<br>
+</div>
+</body>
+</html>
