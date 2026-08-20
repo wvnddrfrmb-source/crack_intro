@@ -684,6 +684,175 @@ font-weight: 700;
   border-top: 1px solid var(--border);
 }
 
+/* ══
+   세계관 아코디언
+══ */
+
+.lore-section {
+  padding: 2.5rem 0 4rem;
+  border-top: 1px solid var(--border);
+}
+
+.lore-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.lore-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.lore-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.lore-toggle { display: none; }
+
+.lore-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.95rem 1.1rem;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.lore-head:hover { border-color: rgba(138,110,58,0.35); }
+
+.lore-idx {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.lore-name {
+  font-size: 0.86rem;
+  color: var(--parchment);
+  line-height: 1.3;
+}
+
+.lore-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+
+.lore-mark {
+  margin-left: auto;
+  color: var(--silver);
+  font-size: 0.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.55;
+}
+.lore-mark::after { content: '+'; }
+
+.lore-body {
+  display: none;
+  padding: 1.1rem 1.2rem 1.3rem;
+  background: rgba(255,255,255,0.012);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  animation: loreOpen 0.3s ease;
+}
+
+@keyframes loreOpen {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lore-toggle:checked + .lore-head {
+  border-color: rgba(138,110,58,0.4);
+  border-radius: 4px 4px 0 0;
+  background: rgba(255,255,255,0.04);
+}
+.lore-toggle:checked + .lore-head .lore-mark::after { content: '−'; }
+.lore-toggle:checked + .lore-head .lore-mark { color: var(--gold); opacity: 1; }
+.lore-toggle:checked + .lore-head + .lore-body { display: block; }
+
+.lore-block + .lore-block {
+  margin-top: 1.1rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border);
+}
+
+.lore-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.55rem;
+}
+
+.lore-ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.lore-ul li {
+  font-size: 0.82rem;
+  line-height: 1.85;
+  color: #807870;
+  padding-left: 0.85rem;
+  position: relative;
+}
+.lore-ul li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  opacity: 0.6;
+}
+.lore-ul li b {
+  color: #c0b8a8;
+  font-weight: 400;
+}
+.lore-warn { color: #9a7060; }
+
+.lore-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.lore-tl-row {
+  display: grid;
+  grid-template-columns: 82px 1fr;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+.lore-tl-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.lore-tl-text {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: #807870;
+}
+
 </style>
 </head>
 <body>
@@ -1168,6 +1337,245 @@ font-weight: 700;
   </div>
 </div>
 <br> <br> <br>
+
+<!-- ══ 세계관 ══ -->
+<div class="lore-section">
+  <div class="lore-title">World · 세계관</div>
+
+  <div class="lore-list">
+
+    <!-- 01 카르티아 제국 -->
+    <input type="checkbox" id="lore1" class="lore-toggle">
+    <label for="lore1" class="lore-head">
+      <span class="lore-idx">01</span>
+      <span class="lore-name">카르티아 제국 <span class="lore-en">Karthya Empire</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-block">
+        <ul class="lore-ul">
+          <li>수도는 <b>티아레 / Thiare</b>. 화려하고 소란스러운 남쪽의 심장.</li>
+          <li>황태자는 <b>루카스 폰 카르티아</b>. 그 아래로 이복동생인 2황자 타르젠이 있다.</li>
+          <li><b>태음력</b>을 사용한다. 매월 음력 초하루인 '삭'이 북부의 모든 일정을 지배한다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">크라켄 · Kraken</div>
+        <ul class="lore-ul">
+          <li>고대 기록에만 등장한다. 학자들 사이에서는 신화적 과장으로 분류된다.</li>
+          <li>마법이 실재하는 세계에서조차, 크라켄만은 허황된 뱃사람의 전설 취급을 받는다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 02 피얄 -->
+    <input type="checkbox" id="lore2" class="lore-toggle">
+    <label for="lore2" class="lore-head">
+      <span class="lore-idx">02</span>
+      <span class="lore-name">피얄 <span class="lore-en">Fjall</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-block">
+        <ul class="lore-ul">
+          <li>제국 최북단. 베스퍼 대공령과 토착민 공동체가 나누어 지킨다.</li>
+          <li>일 년 내내 눈이 내린다. 침엽수림, 끝없는 설원, 그리고 아메시스 군락.</li>
+          <li>에테르 농도가 짙을수록 <b>오로라</b>가 선명해진다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">아메시스 · Amesis</div>
+        <ul class="lore-ul">
+          <li>피얄에서만 피는 보라색 꽃. 꽃말은 <b>의지와 약속</b>.</li>
+          <li>전사들은 출전 전 가슴에 품는다. 생화를 선물하는 것은 각별한 의미를 가진다.</li>
+          <li>에테르 전도율이 낮은 사람만 맨손 채집이 가능하다. <span class="lore-warn">금속 도구를 대면 맹독으로 변한다.</span></li>
+          <li><span class="lore-warn">에테르 역류</span> — 마법사·마검사가 채집하면 혈관에 유리 파편이 박혀 거꾸로 치솟는 감각과 함께 오감이 뒤틀린다.</li>
+          <li>용도: 회로 문신 잉크 · 고급 차 · 아메시스 독주(방한용).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 03 베스퍼 대공령 -->
+    <input type="checkbox" id="lore3" class="lore-toggle">
+    <label for="lore3" class="lore-head">
+      <span class="lore-idx">03</span>
+      <span class="lore-name">베스퍼 대공령 <span class="lore-en">Grand Duchy of Vesper</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-block">
+        <ul class="lore-ul">
+          <li>피얄 중남부 관할. <b>치외법권</b>에 가까워 제국법이 적용되지 않는다.</li>
+          <li>철저한 실력 우선. 성별도 출신도 묻지 않는다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">베스퍼 대공저</div>
+        <ul class="lore-ul">
+          <li>정원 중앙의 <b>얼음꽃 등나무</b>가 베스퍼 가의 상징이다.</li>
+          <li>전선에서 한 발짝 물러난 남쪽. 검은 석재의 오래되고 실용적인, 웅장한 건물.</li>
+          <li>곳곳에 큰 난로가 놓여 있고, 창밖으로 아메시스 계곡이 가깝게 보인다.</li>
+          <li>{{user}}의 거처는 크헤트의 옆방. 정작 그는 검은 얼음 성채에 있는 날이 더 많다.</li>
+          <li>선대 대공비가 아끼던 거대한 서재와 넓은 온실이 지금도 잘 관리되고 있다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">검은 얼음 성채</div>
+        <ul class="lore-ul">
+          <li>최전선 바로 앞의 요새. 대장간과 의무실, 훈련장이 갖춰져 있다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 04 아이언헬름 -->
+    <input type="checkbox" id="lore4" class="lore-toggle">
+    <label for="lore4" class="lore-head">
+      <span class="lore-idx">04</span>
+      <span class="lore-name">아이언헬름 <span class="lore-en">Ironhelm</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-block">
+        <ul class="lore-ul">
+          <li>감시 초소 마을. 대장장이와 은퇴한 전사, 드워프들이 산다.</li>
+          <li>마을 중심에는 결코 꺼지지 않는 화로, <b>심장불</b>이 타오른다.</li>
+          <li>에테르 진동으로 마수의 이동을 예측하는 기술이 전해진다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">막스 만물포 · Max's Everything</div>
+        <ul class="lore-ul">
+          <li>없는 것 빼고 다 있는 만물상점. 정보가 빠르다. 물론 공짜는 아니다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">드런큰 드래곤 · The Drunken Dragon</div>
+        <ul class="lore-ul">
+          <li>만물포 옆의 시끌벅적한 술집. 자유롭고 거친 분위기.</li>
+          <li><b>길잡이 고용 거점</b>. 길잡이 없이 피얄 북쪽으로 향하는 것은 자살행위다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 05 이그니르 -->
+    <input type="checkbox" id="lore5" class="lore-toggle">
+    <label for="lore5" class="lore-head">
+      <span class="lore-idx">05</span>
+      <span class="lore-name">대빙벽 이그니르 <span class="lore-en">Ignir</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <ul class="lore-ul">
+        <li>피얄 최북단을 가로막은 천연 얼음 산맥.</li>
+        <li>너머는 미지의 땅. <span class="lore-warn">이전에 넘어간 탐험대는 전멸했다.</span></li>
+        <li>음력 초하루 <b>삭</b>마다 에테르가 희박해지고, 마수가 남하해 <b>몬스터 웨이브</b>가 터진다.</li>
+        <li>여름에는 소규모, 겨울에는 대규모.</li>
+      </ul>
+    </div>
+
+    <!-- 06 축제 -->
+    <input type="checkbox" id="lore6" class="lore-toggle">
+    <label for="lore6" class="lore-head">
+      <span class="lore-idx">06</span>
+      <span class="lore-name">축제와 절기 <span class="lore-en">Festivals</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-block">
+        <div class="lore-sub">극야제 · 11월 15일</div>
+        <ul class="lore-ul">
+          <li>피얄에서 가장 성대한 축제. 그해 가장 화려한 오로라가 나타나는 밤.</li>
+          <li>아메시스를 넣은 등불을 하늘로 띄워 죽은 전사들을 기린다.</li>
+          <li>춤과 술, 그리고 <b>거대한 여우 신수</b>가 모습을 드러내는 유일한 날.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">봄 사냥 축제 · 3월 15일</div>
+        <ul class="lore-ul">
+          <li>토착민과 대공령 전사들의 사냥 경쟁. 그날 잡은 사냥감으로 연회를 연다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">백야장 · 6월 15일</div>
+        <ul class="lore-ul">
+          <li>아메시스 계곡에서 열리는 교역 장터. 외지 상인들이 몰려들고, 백야라 축제가 다음 날까지 이어진다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">건국제 · 8월 23일</div>
+        <ul class="lore-ul">
+          <li>수도 황궁의 연회. 귀족이라면 무조건 참석해야 한다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 07 전투 체계 -->
+    <input type="checkbox" id="lore7" class="lore-toggle">
+    <label for="lore7" class="lore-head">
+      <span class="lore-idx">07</span>
+      <span class="lore-name">전투 체계 <span class="lore-en">Combat</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-block">
+        <ul class="lore-ul">
+          <li><b>마검사</b> — 오러를 신체와 무기에 실어 싸운다.</li>
+          <li><b>소드마스터</b> — 오러를 외부로 실체화해 방출하는 경지. 검기를 사용한다.</li>
+          <li><b>마법사</b> — 마법진을 연구해 체화한 뒤 시전한다. 역량에 따라 속도 차이가 크다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">회로 각인</div>
+        <ul class="lore-ul">
+          <li>피얄에서만 행하는 방식. 특수 잉크로 신체에 마법 회로를 새긴다.</li>
+          <li>마법사 체질만 가능하며, 체화와 시전 과정을 통째로 건너뛴다.</li>
+          <li>단, 회로만으로는 각인된 것 외의 술식을 쓸 수 없다.</li>
+          <li><span class="lore-warn">상처로 회로가 끊기면 위력이 떨어진다.</span></li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">포털</div>
+        <ul class="lore-ul">
+          <li>고위 마법사 최소 3인과 다량의 마정석이 필요한 고비용 이동 수단.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 08 연표 -->
+    <input type="checkbox" id="lore8" class="lore-toggle">
+    <label for="lore8" class="lore-head">
+      <span class="lore-idx">08</span>
+      <span class="lore-name">연표 <span class="lore-en">Chronicle</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-timeline">
+        <div class="lore-tl-row">
+          <span class="lore-tl-date">438 · 봄</span>
+          <span class="lore-tl-text">레나르 카엘리우스 잠적. 쪽지 한 장을 남기고 북항에서 사라졌다.</span>
+        </div>
+        <div class="lore-tl-row">
+          <span class="lore-tl-date">438 · 가을</span>
+          <span class="lore-tl-text">베스퍼 대공가에서 혼담 서신 도착. {{user}}가 수락한다.</span>
+        </div>
+        <div class="lore-tl-row">
+          <span class="lore-tl-date">438 · 11 · 09</span>
+          <span class="lore-tl-text">베스퍼 대공령 도착.</span>
+        </div>
+        <div class="lore-tl-row">
+          <span class="lore-tl-date">438 · 11 · 15</span>
+          <span class="lore-tl-text">극야제.</span>
+        </div>
+        <div class="lore-tl-row">
+          <span class="lore-tl-date">438 · 12 · 07</span>
+          <span class="lore-tl-text">약혼식.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div class="ornament">— ◆ ◇ ◆ —</div>
 <br>
 </div>
