@@ -5,23 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>황궁 — 카르티아 제국</title>
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 :root {
   --ink:       #0e0b14;
   --parchment: #e0d8c8;
   --dim:       #8a8078;
   --gold:      #b8943e;
   --violet:    #6e5a8a;
-  --accent:    #f2ece0;
   --border:    rgba(110,90,138,0.18);
 }
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
   background: var(--ink);
   color: var(--parchment);
   font-size: 13px;
   line-height: 1;
 }
+
 body::after {
   content: '';
   position: fixed;
@@ -30,31 +34,37 @@ body::after {
   pointer-events: none;
   z-index: 999;
 }
-.u { color: var(--accent); font-weight: 500; }
+
 .anchor {
   position: absolute;
   visibility: hidden;
   pointer-events: none;
 }
+
 .wrap {
   position: relative;
   z-index: 1;
-  max-width: 340px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 0 1.2rem;
+  padding: 0 2rem;
 }
+
 /* ── 슬라이더 ── */
 .slider {
-  height: 470px;
+  height: 440px;
   position: relative;
   overflow: hidden;
 }
+
+/* ── 배경: 보라빛 안개 ── */
 .amb-bg {
   position: absolute;
   inset: 0;
+
   pointer-events: none;
   z-index: 0;
 }
+
 .slide {
   display: none;
   position: absolute;
@@ -65,11 +75,14 @@ body::after {
   animation: fadeIn 0.4s ease;
   z-index: 1;
 }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateX(30px); }
   to   { opacity: 1; transform: translateX(0); }
 }
+
 .slide-p1 { display: flex; }
+
 #p1:target ~ .wrap .slide-p1,
 #p2:target ~ .wrap .slide-p2,
 #p3:target ~ .wrap .slide-p3,
@@ -77,12 +90,14 @@ body::after {
 #p5:target ~ .wrap .slide-p5,
 #p6:target ~ .wrap .slide-p6,
 #p7:target ~ .wrap .slide-p7 { display: flex; }
+
 #p2:target ~ .wrap .slide-p1,
 #p3:target ~ .wrap .slide-p1,
 #p4:target ~ .wrap .slide-p1,
 #p5:target ~ .wrap .slide-p1,
 #p6:target ~ .wrap .slide-p1,
 #p7:target ~ .wrap .slide-p1 { display: none; }
+
 /* ── 왕관 장식 ── */
 .crown {
   text-align: center;
@@ -92,6 +107,7 @@ body::after {
   color: var(--gold);
   letter-spacing: 0.5em;
 }
+
 /* ── CHAPTER ── */
 .chapter {
   display: flex;
@@ -112,6 +128,7 @@ body::after {
   height: 1px;
   background: var(--border);
 }
+
 /* ── PROSE ── */
 .prose {
   font-size: 0.9rem;
@@ -122,6 +139,7 @@ body::after {
 .prose .line { color: #c0b8a8; }
 .prose .user-line { color: var(--gold); }
 .prose .highlight { color: var(--violet); }
+
 /* ── 가십지 (황금깃펜) ── */
 .gazette {
   width: 100%;
@@ -159,6 +177,25 @@ body::after {
 .gazette-rule       { height: 1px; background: #5a4a28; margin: 0.22rem 0; flex-shrink: 0; }
 .gazette-rule.thick { height: 4px; background: #3a2e1a; margin: 0.18rem 0; }
 .gazette-rule.thin  { height: 1px; background: rgba(90,74,40,0.3); margin: 0.2rem 0; }
+.gazette-flag { text-align: center; padding: 0.15rem 0; }
+.gazette-flag-name {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #1a1408;
+  text-transform: uppercase;
+  line-height: 1;
+  padding-bottom: 0.3rem;
+}
+.gazette-flag-sub {
+  display: block;
+  font-size: 0.42rem;
+  letter-spacing: 0.45em;
+  color: #7a6540;
+  margin-top: 0.2rem;
+  text-transform: uppercase;
+}
 .gazette-headline {
   font-size: 0.95rem;
   font-weight: 700;
@@ -174,7 +211,44 @@ body::after {
   color: #4a3e22;
   text-align: center;
 }
-/* ── 장식 ── */
+.gazette-body {
+  font-size: 0.72rem;
+  line-height: 1.85;
+  color: #2e2610;
+  padding: 0.4rem 0;
+}
+.gazette-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.44rem;
+  letter-spacing: 0.04em;
+  color: #8a7a50;
+  padding-top: 0.2rem;
+}
+
+/* ── 서신 ── */
+.letter {
+  margin: 1.8rem 0;
+  border: 1px solid var(--border);
+  padding: 1.6rem 1.8rem;
+  background: rgba(110,90,138,0.04);
+}
+.letter-header {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+.letter-body {
+  font-size: 0.82rem;
+  line-height: 2.1;
+  color: #807870;
+}
+
 .ornament {
   color: var(--gold);
   font-size: 0.55rem;
@@ -183,6 +257,7 @@ body::after {
   opacity: 0.45;
   text-align: center;
 }
+
 /* ── NAV ── */
 .nav {
   display: flex;
@@ -206,6 +281,7 @@ body::after {
 #p6:target ~ .wrap .nav .nav-p6 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
 #p7:target ~ .wrap .nav .nav-set { display: none; }
 #p7:target ~ .wrap .nav .nav-p7 { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+
 .nav-btn {
   display: inline-flex;
   align-items: center;
@@ -228,17 +304,42 @@ body::after {
   color: var(--dim);
 }
 .page-num .cur { color: var(--gold); }
+
 /* ══ 캐릭터 카드 ══ */
 .chars-section {
   padding: 3rem 0 4rem;
   border-top: 1px solid var(--border);
 }
+
+.chars-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.chars-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
 .chars-grid {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.card { display: block; border-radius: 4px; }
+
+.card {
+  display: block;
+  border-radius: 4px;
+}
+
 .card-front {
   display: flex;
   flex-direction: column;
@@ -247,23 +348,47 @@ body::after {
   border-radius: 4px;
   overflow: hidden;
 }
-.card-top { display: grid; grid-template-columns: 84px 1fr; }
+
+.card-top {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+}
+
 .card-img {
-  width: 84px;
+  width: 100px;
   aspect-ratio: 3 / 4;
   background: rgba(110,90,138,0.08);
   overflow: hidden;
   flex-shrink: 0;
 }
-.card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(110,90,138,0.15);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
 .card-header {
-  padding: 0.8rem 0.9rem;
+  padding: 1rem 1.1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.25rem;
   border-bottom: 1px solid var(--border);
 }
+
 .card-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 0.95rem;
@@ -279,6 +404,13 @@ body::after {
   font-style: italic;
   font-weight: 700;
 }
+.card-role {
+  font-size: 0.7rem;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin-top: 0.1rem;
+}
+
 .card-desc {
   padding: 0.85rem 1.1rem;
   font-size: 0.84rem;
@@ -286,6 +418,7 @@ body::after {
   color: #807870;
   border-bottom: 1px solid var(--border);
 }
+
 .card-keywords {
   display: flex;
   gap: 0.4rem;
@@ -302,28 +435,24 @@ body::after {
   text-transform: uppercase;
   border-radius: 2px;
 }
-/* ══ LORE ══ */
+
+/* ══ 세계관 아코디언 ══ */
+
 .lore-section {
-  padding: 3.4rem 0 1rem;
+  padding: 2.5rem 0 4rem;
+  border-top: 1px solid var(--border);
 }
-.lore-head { margin-bottom: 2.2rem; }
-.lore-kicker {
+
+.lore-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 0.55rem;
-  letter-spacing: 0.42em;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
   color: var(--gold);
   text-transform: uppercase;
-  display: block;
-  margin-bottom: 0.8rem;
-}
-.lore-title {
-  font-size: 1.1rem;
-  color: var(--parchment);
-  letter-spacing: 0.06em;
-  line-height: 1.4;
+  margin-bottom: 1.8rem;
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 1rem;
 }
 .lore-title::after {
   content: '';
@@ -331,155 +460,269 @@ body::after {
   height: 1px;
   background: var(--border);
 }
-.lore-lead {
-  font-size: 0.86rem;
-  line-height: 2.15;
-  color: #948c81;
-  margin-bottom: 2rem;
-}
-.lore-lead em { color: var(--violet); font-style: normal; }
-/* 항목 리스트 */
-.facts {
+
+.lore-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.55rem;
 }
-.fact-k {
+
+.lore-toggle { display: none; }
+
+.lore-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.95rem 1.1rem;
+  background: rgba(110,90,138,0.06);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.lore-head:hover { border-color: rgba(184,148,62,0.32); }
+
+.lore-idx {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.lore-name {
+  font-size: 0.86rem;
+  color: var(--parchment);
+  line-height: 1.3;
+}
+
+.lore-en {
+  font-family: 'Cormorant Garamond', serif;
   font-size: 0.68rem;
-  letter-spacing: 0.24em;
+  font-style: italic;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+
+.lore-mark {
+  margin-left: auto;
+  color: var(--violet);
+  font-size: 0.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.lore-mark::after { content: '+'; }
+
+.lore-body {
+  display: none;
+  padding: 1.1rem 1.2rem 1.3rem;
+  background: rgba(110,90,138,0.03);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  animation: loreOpen 0.3s ease;
+}
+
+@keyframes loreOpen {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lore-toggle:checked + .lore-head {
+  border-color: rgba(184,148,62,0.4);
+  border-radius: 4px 4px 0 0;
+  background: rgba(110,90,138,0.12);
+}
+.lore-toggle:checked + .lore-head .lore-mark::after { content: '−'; }
+.lore-toggle:checked + .lore-head .lore-mark { color: var(--gold); opacity: 1; }
+.lore-toggle:checked + .lore-head + .lore-body { display: block; }
+
+.lore-block + .lore-block {
+  margin-top: 1.1rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border);
+}
+
+.lore-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
   color: var(--gold);
   text-transform: uppercase;
   margin-bottom: 0.55rem;
 }
-.fact-v {
-  font-size: 0.85rem;
-  line-height: 2.05;
-  color: #8b8378;
-}
-.fact-v .em { color: #c8c0b0; }
-/* 인물 미니 항목 */
-.kin {
-  margin-top: 2.4rem;
+
+.lore-ul {
+  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
+  gap: 0.4rem;
 }
-.kin-item {
-  border-left: 2px solid rgba(184,148,62,0.3);
-  padding: 0.35rem 0 0.35rem 1.1rem;
-}
-.kin-name {
-  font-size: 0.88rem;
-  color: var(--parchment);
-  letter-spacing: 0.02em;
-}
-.kin-tag {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.16em;
-  color: var(--violet);
-  text-transform: uppercase;
-  margin-left: 0.5rem;
-}
-.kin-desc {
+.lore-ul li {
   font-size: 0.82rem;
-  line-height: 2.05;
-  color: #857c71;
-  margin-top: 0.5rem;
-}
-/* 소문 스크랩 (양피지) */
-.scrap {
-  background: #e8dfc2;
-  background-image:
-    radial-gradient(ellipse at 15% 0%, rgba(255,252,230,0.55) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 100%, rgba(170,150,95,0.28) 0%, transparent 55%);
-  color: #1a1408;
-  font-family: 'Cormorant Garamond', serif;
-  padding: 1.3rem 1.3rem 1.2rem;
-  position: relative;
-  overflow: hidden;
-}
-.scrap + .scrap { margin-top: 1.6rem; }
-.scrap-label {
-  font-size: 0.52rem;
-  letter-spacing: 0.34em;
-  color: #7a6540;
-  text-transform: uppercase;
-  text-align: center;
-}
-.scrap-rule { height: 1px; background: #5a4a28; margin: 0.55rem 0 0.9rem; }
-.scrap-rule.thin { background: rgba(90,74,40,0.3); margin: 0.9rem 0 0.55rem; }
-.scrap-item {
-  font-size: 0.8rem;
-  line-height: 1.95;
-  color: #2e2610;
-  padding: 0 0 0 0.95rem;
+  line-height: 1.85;
+  color: #807870;
+  padding-left: 0.85rem;
   position: relative;
 }
-.scrap-item + .scrap-item { margin-top: 0.85rem; }
-.scrap-item::before {
-  content: '❧';
+.lore-ul li::before {
+  content: '·';
   position: absolute;
   left: 0;
-  top: 0.3rem;
-  font-size: 0.55rem;
-  color: #8a7340;
-}
-.scrap-item b { font-weight: 700; color: #100c04; }
-.scrap-item .u { color: #0f0b16; }
-.scrap-foot {
-  font-size: 0.6rem;
-  font-style: italic;
-  text-align: center;
-  color: #4a3e22;
-  line-height: 1.6;
-}
-/* 장소 */
-.district { margin-bottom: 2.2rem; }
-.district:last-child { margin-bottom: 0; }
-.district-name {
-  font-size: 0.7rem;
-  letter-spacing: 0.28em;
-  color: var(--violet);
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 0.9rem;
-}
-.district-name::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-.district-note {
-  font-size: 0.83rem;
-  line-height: 2.1;
-  color: #857c71;
-}
-.spots { display: flex; flex-direction: column; gap: 0.9rem; }
-.spot { font-size: 0.83rem; line-height: 1.9; }
-.spot-n { color: var(--parchment); }
-.spot-d { color: #7d746a; }
-/* 축제 달력 */
-.cal { display: flex; flex-direction: column; gap: 1.3rem; }
-.cal-row { display: grid; grid-template-columns: 56px 1fr; gap: 0.9rem; align-items: baseline; }
-.cal-d {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
   color: var(--gold);
-  text-align: right;
+  opacity: 0.6;
+}
+.lore-ul li b {
+  color: #c0b8a8;
+  font-weight: 400;
+}
+.lore-warn { color: var(--violet); }
+
+.lore-cal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.lore-cal-row {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+.lore-cal-date {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
   white-space: nowrap;
 }
-.cal-n { font-size: 0.85rem; color: var(--parchment); line-height: 1.6; }
-.cal-x { font-size: 0.8rem; color: #7d746a; line-height: 1.9; display: block; margin-top: 0.25rem; }
-.cal-row.mark .cal-n { color: var(--violet); }
+.lore-cal-text {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: #807870;
+}
+.lore-cal-text b {
+  color: #c0b8a8;
+  font-weight: 400;
+}
+
+/* ── 아코디언 속 신문 스크랩 ── */
+.lore-clip {
+  background: #f0e8cc;
+  background-image:
+    radial-gradient(ellipse at 10% 0%, rgba(255,252,230,0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 100%, rgba(180,160,100,0.28) 0%, transparent 50%);
+  color: #1a1408;
+  font-family: 'Cormorant Garamond', serif;
+  padding: 0.75rem 1.1rem 0.65rem;
+  position: relative;
+  overflow: hidden;
+  filter: drop-shadow(0 3px 14px rgba(0,0,0,0.5));
+}
+.lore-clip + .lore-clip { margin-top: 1.2rem; }
+.lore-clip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 22px,
+    rgba(140,120,70,0.07) 22px, rgba(140,120,70,0.07) 23px
+  );
+  pointer-events: none;
+}
+
+.clip-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.44rem;
+  letter-spacing: 0.2em;
+  color: #7a6540;
+  padding-bottom: 0.2rem;
+}
+.clip-rule       { height: 1px; background: #5a4a28; margin: 0.22rem 0; }
+.clip-rule.thick { height: 3px; background: #3a2e1a; margin: 0.18rem 0; }
+.clip-rule.thin  { height: 1px; background: rgba(90,74,40,0.3); margin: 0.2rem 0; }
+
+.clip-flag {
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.25rem 0;
+  color: #1a1408;
+}
+
+.clip-headline {
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #100c04;
+  text-align: center;
+  margin: 0.3rem 0 0.15rem;
+}
+.clip-sub {
+  font-size: 0.56rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: #4a3e22;
+  text-align: center;
+  padding-bottom: 0.1rem;
+}
+
+.clip-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.45rem 0 0.3rem;
+}
+.clip-item {
+  font-size: 0.72rem;
+  line-height: 1.8;
+  color: #2e2610;
+  padding-left: 0.9rem;
+  position: relative;
+}
+.clip-item::before {
+  content: '▪';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.5rem;
+  color: #7a6540;
+}
+.clip-item b {
+  font-weight: 700;
+  color: #100c04;
+}
+.clip-item i {
+  color: #5a4a28;
+}
+
+.clip-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.44rem;
+  letter-spacing: 0.04em;
+  color: #8a7a50;
+  padding-top: 0.15rem;
+}
+.clip-stamp {
+  font-weight: 700;
+  font-style: italic;
+  color: #7a3018;
+}
+
 </style>
 </head>
 <body>
+
 <div style="display:flex; flex-direction:column; align-items:center; color:#8b9096; font-size:0.8rem; margin:16px 0 32px;"><p><br>♬ AI로 생성한 음악입니다. ♬</p><br><audio src="https://raw.githubusercontent.com/wvnddrfrmb-source/link/refs/heads/main/moonlight-on-the-danube.mp3" controls></audio></div>
+
 <span id="p1" class="anchor"></span>
 <span id="p2" class="anchor"></span>
 <span id="p3" class="anchor"></span>
@@ -487,9 +730,11 @@ body::after {
 <span id="p5" class="anchor"></span>
 <span id="p6" class="anchor"></span>
 <span id="p7" class="anchor"></span>
+
 <div class="wrap">
   <div class="slider">
     <div class="amb-bg"></div>
+
     <!-- PAGE 1 -->
     <div class="slide slide-p1">
       <div class="crown">♔</div>
@@ -499,18 +744,20 @@ body::after {
       </div>
       <div class="prose">
         <p>헤르만 카엘리우스 공작에게는 자식이 셋 있었다.</p>
-        <p>레나르는 유능했으나 도망쳤고,<br>칼렙은 성실했으나 서자였고,<br>막내 <span class="u">{user}</span>는,</p>
+        <p>레나르는 유능했으나 도망쳤고,<br>칼렙은 성실했으나 서자였고,<br>막내 {{user}}는,</p>
         <p>그야말로 골칫거리였다.<br><span style="color: #666; font-size: 0.75rem;">[▶]를 눌러 페이지 넘기기</span></p>
       </div>
     </div>
+
     <!-- PAGE 2 -->
     <div class="slide slide-p2">
       <div class="prose">
-        <p>« 황금 깃펜 (The Golden Quill) »<br>사교계 칼럼 발췌:</p>
+<p>« 황금 깃펜 (The Golden Quill) »<br>사교계 칼럼 발췌:</p>
       </div>
-      <br>
+<br>
       <div class="gazette">
-        <div class="gazette-top"></div>
+        <div class="gazette-top">
+        </div>
         <div class="gazette-rule thin"></div>
         <p class="gazette-headline">"카엘리우스 가의 막내가<br>또 사고를 쳤다."</p>
         <div class="gazette-rule"></div>
@@ -518,22 +765,25 @@ body::after {
         <div class="gazette-rule thin"></div>
       </div>
     </div>
+
     <!-- PAGE 3 -->
     <div class="slide slide-p3">
       <div class="prose">
         <p>칼럼의 단골 소재는 늘 같았다.</p>
-        <p><span class="u">{user}</span>가 티파티에서 새총으로 영애들의 머리 장식을 사냥한 사건,</p>
-        <p>연회에서 다른 가문 영애의 드레스 장식을 뜯어낸 만행,</p>
-        <p>그리고 대망의 정점 — 고양이를 연회장에 끌고 들어온 것도 모자라, 그 고양이에게 황태자의 이름인 '루카스'를 붙이고 웃던 사건까지.</p>
+        <p>{{user}}가 티파티에서 새총으로 영애들의 머리 장식을 사냥한 사건,</p>
+<p>연회에서 다른 가문 영애의 드레스 장식을 뜯어낸 만행,</p>
+<p>그리고 대망의 정점 — 고양이를 연회장에 끌고 들어온 것도 모자라, 그 고양이에게 황태자의 이름인 '루카스'를 붙이고 웃던 사건까지.</p>
       </div>
     </div>
+
     <!-- PAGE 4 -->
     <div class="slide slide-p4">
       <div class="prose">
         <p>사교계가 카엘리우스의 막내에 대해 합의한 것은 딱 하나: <span class="highlight">저 인간에게는 절대 혼담을 넣지 마라.</span></p>
-        <p>그런데 그 악명 높은 <span class="u">{user}</span>를 데려가겠다는 용자가 나타났다.<br>그것도 둘씩이나, 제국의 정점에 선 두 남자에게서.</p>
+        <p>그런데 그 악명 높은 {{user}}를 데려가겠다는 용자가 나타났다.<br>그것도 둘씩이나, 제국의 정점에 선 두 남자에게서.</p>
       </div>
     </div>
+
     <!-- PAGE 5 -->
     <div class="slide slide-p5">
       <div class="prose">
@@ -542,27 +792,32 @@ body::after {
         <p><span class="line">"황태자 루카스, 그리고 제2황자 타르젠. 양쪽에서 너를… 아니, 정확히는 우리 가문의 마정석 산지를 아내로 맞고 싶어 하는 모양이다."</span></p>
       </div>
     </div>
+
     <!-- PAGE 6 -->
     <div class="slide slide-p6">
       <div class="prose">
-        <p>제국 유일의 마정석 산지를 쥔 카엘리우스 가는 누구든 탐낼 황금알을 낳는 거위였다. 다만 그 황금알을 얻기 위해 감수해야 하는 끼워팔기 상품이 제국 최악의 망나니라는 점이 문제일 뿐.</p>
+        <p>제국 유일의 마정석 산지를 쥔 카엘리우스 가는 누구든 탐낼 황금알이었다. 다만 그 황금알을 얻기 위해 감수해야 하는 끼워팔기 상품이 제국 최악의 망나니라는 점이 문제일 뿐.</p>
         <p>공작의 시선이 잠시 창밖으로 흘렀다.</p>
         <p><span class="line">"…가서 정세나 좀 살피고 오너라. 깽판을 치든 춤을 추든, 이제는 제국의 운명에 맡기마."</span></p>
       </div>
     </div>
+
     <!-- PAGE 7 -->
+
     <div class="slide slide-p7">
-      <div class="chapter">
+<div class="chapter">
         <span class="chapter-num">황궁으로</span>
         <div class="chapter-line"></div>
       </div>
       <div class="prose">
         <p>혼담의 무게를 이해하지 못할 만큼 어리석지는 않았다.</p>
         <p>황태자 루카스, 탄탄한 입지를 위해 판을 짜는 남자. 제2황자 타르젠, 능글맞은 웃음 뒤에 야망을 숨긴 전사.</p>
-        <p>어느 쪽을 골라도 피곤한 미래가 그려졌지만, 아무렴 어떤가. <span class="u">{user}</span>의 일상은 이미 충분히 피곤했으므로. 여기서 더 피곤해질 리가 없다는 오만한 확신에, 망설임 없이 황궁으로 향했다.</p>
+        <p>어느 쪽을 골라도 피곤한 미래가 그려졌지만, 아무렴 어떤가. {{user}}의 일상은 이미 충분히 피곤했으므로. 여기서 더 피곤해질 리가 없다는 오만한 확신에, 망설임 없이 황궁으로 향했다.</p>
       </div>
     </div>
+
   </div><!-- /slider -->
+
   <!-- NAV -->
   <nav class="nav">
     <div class="nav-set nav-p1">
@@ -601,11 +856,13 @@ body::after {
       <span class="nav-btn disabled">▶</span>
     </div>
   </nav>
+
 <br>
   <div class="chars-section">
     <div class="ornament">— ◆ ◇ ◆ —</div>
 <br><br>
     <div class="chars-grid">
+
       <!-- CARD 1: 루카스 -->
       <label for="card1" class="card">
         <div class="card-front">
@@ -624,6 +881,7 @@ body::after {
           </div>
         </div>
       </label>
+
       <!-- CARD 2: 타르젠 -->
       <label for="card2" class="card">
         <div class="card-front">
@@ -642,6 +900,7 @@ body::after {
           </div>
         </div>
       </label>
+
       <!-- CARD 3: 에밀 -->
       <label for="card3" class="card">
         <div class="card-front">
@@ -660,6 +919,7 @@ body::after {
           </div>
         </div>
       </label>
+
       <!-- CARD 4: 살리에 -->
       <label for="card4" class="card">
         <div class="card-front">
@@ -678,6 +938,7 @@ body::after {
           </div>
         </div>
       </label>
+
       <!-- CARD 5: 발터 -->
       <label for="card5" class="card">
         <div class="card-front">
@@ -696,6 +957,7 @@ body::after {
           </div>
         </div>
       </label>
+
       <!-- CARD 6: 이반 -->
       <label for="card6" class="card">
         <div class="card-front">
@@ -706,7 +968,7 @@ body::after {
               <div class="card-name-en">Ivan</div>
             </div>
           </div>
-          <div class="card-desc"><span class="u">{user}</span>의 호위기사, 32세. 평민 출신으로, 헤르만 공작이 재능을 발견했다. 어릴 때부터 <span class="u">{user}</span> 전담 호위이자 뒷처리 담당. 과묵하고, 짧은 경어를 쓴다. 지쳐 있다.</div>
+          <div class="card-desc">{{user}}의 호위기사, 32세. 평민 출신으로, 헤르만 공작이 재능을 발견했다. 어릴 때부터 {{user}} 전담 호위이자 뒷처리 담당. 과묵하고, 짧은 경어를 쓴다. 지쳐 있다.</div>
           <div class="card-keywords">
             <span class="card-kw">호위기사</span>
             <span class="card-kw">소드마스터</span>
@@ -717,164 +979,208 @@ body::after {
     </div>
   </div>
 
-  <!-- ══ 카엘리우스 공작가 ══ -->
-  <div class="lore-section">
-    <div class="lore-head">
-      <span class="lore-kicker">House Caelius</span>
-      <div class="lore-title">카엘리우스 공작가</div>
-    </div>
-    <p class="lore-lead">
-      건국의 검을 함께 들었던 공신 가문. 카엘리우스라는 이름은 <em>늘 축복이면서 표적</em>이었다.
-    </p>
-    <div class="facts">
-      <div>
-        <div class="fact-k">영지</div>
-        <div class="fact-v">거대한 <span class="em">마정석 산지</span>를 보유하고 있다. 남쪽 해변에는 조용한 별장이 있으며, 기사가 상주하고 <span class="em">카엘리우스 사람 외에는 아무도 들이지 않는다.</span></div>
+<!-- ══ 세계관 ══ -->
+<div class="lore-section">
+  <div class="lore-title">World · 세계관</div>
+
+  <div class="lore-list">
+
+    <!-- 01 카엘리우스 공작가 -->
+    <input type="checkbox" id="lore1" class="lore-toggle">
+    <label for="lore1" class="lore-head">
+      <span class="lore-idx">01</span>
+      <span class="lore-name">카엘리우스 공작가 <span class="lore-en">House Kaelius</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-block">
+        <ul class="lore-ul">
+          <li>건국 공신 명문가. <b>제국 유일의 마정석 산지</b>를 보유하고 있다.</li>
+          <li>현재는 <b>중립파</b>. 황태자와 2황자 양쪽에서 혼담이 들어온 상태다.</li>
+          <li>가주 헤르만은 어느 쪽을 잡을지 저울질하며, {{user}}를 황궁으로 보냈다.</li>
+          <li>남쪽 해변에 기사가 주둔한 별장이 있다. 카엘리우스 사람 외에는 출입 금지.</li>
+        </ul>
       </div>
-      <div>
-        <div class="fact-k">입장</div>
-        <div class="fact-v">지금은 <span class="em">중립</span>. 그런데 황태자와 제2황자 양쪽에서 혼담이 들어왔으니, 중립도 오래 가긴 어려워 보인다.</div>
-      </div>
-      <div>
-        <div class="fact-k">가주</div>
-        <div class="fact-v">헤르만 카엘리우스. 어느 쪽 손을 잡을지 아직 저울질하는 중이고, 그 저울추로 <span class="u">{user}</span>를 황궁에 보냈다.</div>
-      </div>
-    </div>
-    <div class="kin">
-      <div class="kin-item">
-        <span class="kin-name">레나르 카엘리우스</span><span class="kin-tag">Elder</span>
-        <div class="kin-desc">소공작이자 차기 마탑주 후보였던 사람. 어느 날 크라켄을 잡으러 가겠다는 말만 남기고 사라졌다.</div>
-      </div>
-      <div class="kin-item">
-        <span class="kin-name">칼렙 아벨</span><span class="kin-tag">Bastard</span>
-        <div class="kin-desc">평민 어머니에게서 태어난 이복형제/남매. 서자라 카엘리우스의 성을 쓰지 못하고, 지금은 황실 기사단에서 복무 중이다.</div>
+      <div class="lore-block">
+        <div class="lore-sub">형제</div>
+        <ul class="lore-ul">
+          <li><b>레나르 카엘리우스</b> — 친형제. 소공작이자 차기 마탑주 후보였으나, 크라켄을 잡겠다며 도주했다.</li>
+          <li><b>칼렙 아벨</b> — 이복형제, 서자. 평민 어머니에게서 태어났고 현재 황실기사단에 복무 중이다.</li>
+        </ul>
       </div>
     </div>
+
+    <!-- 02 악명 -->
+    <input type="checkbox" id="lore2" class="lore-toggle">
+    <label for="lore2" class="lore-head">
+      <span class="lore-idx">02</span>
+      <span class="lore-name">사교계의 악명 <span class="lore-en">Notoriety</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-block">
+        <ul class="lore-ul">
+          <li>{{user}}에 대한 소문은 <b>대부분 사실</b>이다. 다만 과장이 섞여 있을 수는 있다.</li>
+          <li>알려지지 않은 것 하나 — <span class="lore-warn">정신계 마법이 통하지 않는 특이 체질.</span></li>
+        </ul>
+      </div>
+      <div class="lore-block">
+
+        <!-- 스크랩 1: 어릴 때 -->
+        <div class="lore-clip">
+          <div class="clip-top">
+            <span>사교계면</span>
+            <span>지난 호 발췌</span>
+            <span>동전 2닢</span>
+          </div>
+          <div class="clip-rule thick"></div>
+          <div class="clip-flag">The Golden Quill</div>
+          <div class="clip-rule thick"></div>
+          <p class="clip-headline">【유년기 특집】 새총과 진검의 나날</p>
+          <div class="clip-rule thin"></div>
+          <p class="clip-sub">본지가 정리한 카엘리우스 막내의 초기 행적 · 피해자 명단 포함</p>
+          <div class="clip-rule"></div>
+          <div class="clip-body">
+            <p class="clip-item"><b>티파티 저격 사건.</b> 새총으로 영애들의 머리 장식을 조준. 남작영애 헬렌 블랑쉬르 혼절, 자작영애 코델리아 실베르 타박상, 시녀 다수 비명. <i>주최측은 이후 초대장 발송을 중단했다.</i></p>
+            <p class="clip-item"><b>진검 소지 파문.</b> 검술을 배우겠다며 진검을 들고 저택을 활보, 기사 몇이 다쳤다. <i>다친 쪽이 기사였다는 점이 특히 회자되었다.</i></p>
+            <p class="clip-item"><b>드레스 훼손 건.</b> 무도회에서 비슷한 옷차림의 비올라 카스티엘 자작영애에게 다가가 "만져보겠다"며 장식을 뜯어냈다.</p>
+          </div>
+          <div class="clip-rule"></div>
+          <div class="clip-foot">
+            <span>편집장 H. 발렌티아</span>
+            <span class="clip-stamp">★ 당시 최다 판매호 ★</span>
+          </div>
+        </div>
+
+        <!-- 스크랩 2: 성인이 된 후 -->
+        <div class="lore-clip">
+          <div class="clip-top">
+            <span>사교계면</span>
+            <span>최근 호 발췌</span>
+            <span>동전 2닢</span>
+          </div>
+          <div class="clip-rule thick"></div>
+          <div class="clip-flag">The Golden Quill</div>
+          <div class="clip-rule thick"></div>
+          <p class="clip-headline">【속보】 성년이 되어도 달라진 것은 없었다</p>
+          <div class="clip-rule thin"></div>
+          <p class="clip-sub">본지는 이제 카엘리우스 막내 전담 지면을 고정 편성하기로 했다</p>
+          <div class="clip-rule"></div>
+          <div class="clip-body">
+            <p class="clip-item"><b>고양이 작명 파문.</b> 기르는 고양이에게 황태자 전하와 같은 이름을 붙이고 연회장에 데려왔다. <i>본지는 해당 고양이의 이름을 지면에 옮기지 않기로 했다.</i></p>
+            <p class="clip-item"><b>호위기사 혹사설.</b> 실력 있는 젊은 소드마스터를 호위로 부리며 온갖 뒷수습을 떠넘긴다는 증언이 이어진다.</p>
+            <p class="clip-item"><b>일 곡 파기.</b> 라크루아 백작가의 코넬에게 춤을 신청받고 응했으나, 한 곡 만에 질렸다며 자리를 떴다.</p>
+            <p class="clip-item"><b>연서 낭독 사건.</b> 시그루드 상단 장남 길버트가 보낸 고백 편지를 살롱에서 소리 내어 읽었다. <i>발신인 측은 답변을 거부했다.</i></p>
+          </div>
+          <div class="clip-rule"></div>
+          <div class="clip-foot">
+            <span>편집장 H. 발렌티아</span>
+            <span class="clip-stamp">★ 제보 환영 · 진위 불문 ★</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 03 티아레 -->
+    <input type="checkbox" id="lore3" class="lore-toggle">
+    <label for="lore3" class="lore-head">
+      <span class="lore-idx">03</span>
+      <span class="lore-name">티아레 <span class="lore-en">Thiare</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-block">
+        <ul class="lore-ul">
+          <li>카르티아 제국의 수도. <b>태음력</b>을 사용한다.</li>
+          <li>도시 중앙에 황궁이 있고, 황실기사단 본부가 인접해 있다.</li>
+          <li>귀족가의 <b>살롱 문화</b> — 시화회, 차회, 무도회. 그 자리가 곧 정보전이다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">상업지구</div>
+        <ul class="lore-ul">
+          <li><b>세 잎의 달</b> — 티하우스. 귀족과 상인이 단골이다.</li>
+          <li><b>붉은 참나무</b> — 고급 위스키 전문점.</li>
+          <li><b>웃는 술통</b> — 모험가들의 술집.</li>
+          <li><b>철과 재</b> — 드워프 장인의 마도구 공방. 주문 제작 전문.</li>
+          <li>모험가 길드 본부도 이 구역에 있다.</li>
+        </ul>
+      </div>
+      <div class="lore-block">
+        <div class="lore-sub">마탑</div>
+        <ul class="lore-ul">
+          <li>도시 남서쪽의 마법 연구 기관. 일반인 출입이 제한된다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 04 하층가·암시장 -->
+    <input type="checkbox" id="lore4" class="lore-toggle">
+    <label for="lore4" class="lore-head">
+      <span class="lore-idx">04</span>
+      <span class="lore-name">하층가와 암시장 <span class="lore-en">The Underside</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <ul class="lore-ul">
+        <li>도시 외곽 저지대. 황궁의 빛이 닿지 않는 구역이다.</li>
+        <li><b>암시장</b>은 하층가 네트워크 위에 얹혀 있다. 금지된 마도구, 독약, 밀수품, 그리고 정보.</li>
+        <li>주인은 <b>빌헬름</b>. <span class="lore-warn">언제나 가면을 쓰고 나타나며, 정체를 아는 자가 없다.</span></li>
+      </ul>
+    </div>
+
+    <!-- 05 축제 -->
+    <input type="checkbox" id="lore5" class="lore-toggle">
+    <label for="lore5" class="lore-head">
+      <span class="lore-idx">05</span>
+      <span class="lore-name">축제와 절기 <span class="lore-en">Festivals</span></span>
+      <span class="lore-mark"></span>
+    </label>
+    <div class="lore-body">
+      <div class="lore-cal">
+        <div class="lore-cal-row">
+          <span class="lore-cal-date">1 · 01</span>
+          <span class="lore-cal-text"><b>새해 대연</b> — 밤하늘을 채우는 불꽃놀이.</span>
+        </div>
+        <div class="lore-cal-row">
+          <span class="lore-cal-date">3 · 03</span>
+          <span class="lore-cal-text"><b>꽃비 축제</b> — 가로수가 일제히 피는 날. 연인들의 날이다.</span>
+        </div>
+        <div class="lore-cal-row">
+          <span class="lore-cal-date">4 · 20</span>
+          <span class="lore-cal-text"><b>황실 마상시합</b></span>
+        </div>
+        <div class="lore-cal-row">
+          <span class="lore-cal-date">매월 15</span>
+          <span class="lore-cal-text"><b>성녀의 축일</b> — 평민에게 개방된다. 5월 15일이 본축일.</span>
+        </div>
+        <div class="lore-cal-row">
+          <span class="lore-cal-date">8 · 23</span>
+          <span class="lore-cal-text"><b>건국제</b> — 황궁 연회. 귀족은 의무 참석이다.</span>
+        </div>
+        <div class="lore-cal-row">
+          <span class="lore-cal-date">9 · 25</span>
+          <span class="lore-cal-text"><b>가을 사냥대회</b></span>
+        </div>
+        <div class="lore-cal-row">
+          <span class="lore-cal-date">10 · 12</span>
+          <span class="lore-cal-text"><b>수확제</b> — 평민부터 귀족까지. 신분의 경계가 느슨해지는 날.</span>
+        </div>
+        <div class="lore-cal-row">
+          <span class="lore-cal-date">12 · 31</span>
+          <span class="lore-cal-text"><b>가면무도회</b> — 가면을 쓰고 신분을 숨긴다.</span>
+        </div>
+        <div class="lore-cal-row">
+          <span class="lore-cal-date">비정기</span>
+          <span class="lore-cal-text"><b>암시장 경매</b> — 빌헬름 주관. <span class="lore-warn">초대장이 있어야 한다.</span></span>
+        </div>
+      </div>
+    </div>
+
   </div>
+</div>
 
-  <!-- ══ {user} ══ -->
-  <div class="lore-section">
-    <div class="lore-head">
-      <span class="lore-kicker">The Youngest</span>
-      <div class="lore-title">카엘리우스의 막내 - <span class="u">{user}</span></div>
-    </div>
-    <p class="lore-lead">
-      사교계가 십 년째 결론 내지 못한 기묘한 인물.</em>
-    </p>
-    <div class="facts">
-      <div>
-        <div class="fact-k">체질</div>
-        <div class="fact-v"><span class="em">체질적으로 정신계 마법이 통하지 않는다.</span> 암시도 매혹도 지배도, 이 머릿속에는 들어오지 못한다.</div>
-      </div>
-    </div>
-
-    <div class="scrap" style="margin-top:2.2rem;">
-      <p class="scrap-label">어릴 적</p>
-      <div class="scrap-rule"></div>
-      <p class="scrap-item">티파티에서 <b>새총</b>으로 영애들을 겨눴다. 그 과정에서 남작영애 헬렌 블랑쉬르가 혼절했고, 자작영애 코델리아 실베르가 타박상을 입었으며, 시녀들의 비명이 울려퍼졌다.</p>
-      <p class="scrap-item">검술을 배우겠다며 <b>진검</b>을 들고 다니다가 기사들이 다쳤다고 한다.</p>
-      <p class="scrap-item">무도회에서 옷이 비슷하다는 이유로 <b>비올라 카스티엘</b> 자작 영애의 장식을 만져보겠다며 뜯어냈다.</p>
-    </div>
-
-    <div class="scrap">
-      <p class="scrap-label">성인이 된 후</p>
-      <div class="scrap-rule"></div>
-      <p class="scrap-item">키우는 고양이의 이름을 황태자의 이름인 <b>'루카스'</b>로 짓고 연회마다 데리고 다녔다.</p>
-      <p class="scrap-item">젊은 <b>소드마스터</b>(이반)를 호위로 두고, 그 재능을 잔심부름과 뒷수습에 쓴다.</p>
-      <p class="scrap-item">라크루아 백작가의 <b>코넬</b>과 한 곡을 추다가, 질렸다며 곡이 끝나기도 전에 자리를 떴다.</p>
-      <p class="scrap-item">시그루드 상가의 <b>길버트</b>가 보낸 고백 편지를 살롱에서 낭독했다.</p>
-    </div>
-  </div>
-
-  <!-- ══ 티아레 ══ -->
-  <div class="lore-section">
-    <div class="lore-head">
-      <span class="lore-kicker">Thiare</span>
-      <div class="lore-title">수도 티아레</div>
-    </div>
-    <p class="lore-lead">
-      달을 세어 날짜를 헤아리는 도시. 가운데의 황궁, 그 그림자가 닿는 데까지가 귀족가, 그리고 닿지 않는 곳이 하층가다.
-    </p>
-
-    <div class="district">
-      <div class="district-name">황궁</div>
-      <p class="district-note">황실기사단 본부와 인접해있다.</p>
-    </div>
-
-    <div class="district">
-      <div class="district-name">귀족가</div>
-      <p class="district-note">살롱, 시회, 차회, 무도회. 겉은 우아하지만 오가는 건 대부분 정보이다.</p>
-    </div>
-
-    <div class="district">
-      <div class="district-name">상업지구</div>
-      <div class="spots">
-        <div class="spot"><span class="spot-n">세 잎의 달</span> <span class="spot-d">— 티하우스. 귀족과 상인이 낮에 밀담을 나누는 곳</span></div>
-        <div class="spot"><span class="spot-n">붉은 참나무</span> <span class="spot-d">— 고급 위스키 전문</span></div>
-        <div class="spot"><span class="spot-n">웃는 술통</span> <span class="spot-d">— 모험가 술집. 시끄럽고 거칠다</span></div>
-        <div class="spot"><span class="spot-n">철과 재</span> <span class="spot-d">— 드워프 장인의 마도구 공방. 주문 제작 전문</span></div>
-        <div class="spot"><span class="spot-n">모험가 길드 본부</span> <span class="spot-d">— 의뢰와 소식이 모이는 곳</span></div>
-      </div>
-    </div>
-
-    <div class="district">
-      <div class="district-name">마탑</div>
-      <p class="district-note">도시 남서쪽의 마법 연구 기관. 일반인은 들어갈 수 없다.</p>
-    </div>
-
-    <div class="district">
-      <div class="district-name">하층가 · 암시장</div>
-      <p class="district-note">도시 외곽 저지대. 하층가 전체에 뻗은 네트워크에 가깝다. 금지된 마도구, 독약, 밀수품, 그리고 무엇보다 비싼 정보가 오간다. 주인은 '빌헬름'. 가면 아래 얼굴을 본 사람은 없다.</p>
-    </div>
-  </div>
-
-  <!-- ══ 축제력 ══ -->
-  <div class="lore-section">
-    <div class="lore-head">
-      <span class="lore-kicker">Calendar</span>
-      <div class="lore-title">티아레의 한 해</div>
-    </div>
-    <div class="cal">
-      <div class="cal-row">
-        <span class="cal-d">1 / 1</span>
-        <span class="cal-n">새해 대연<span class="cal-x">밤하늘을 불꽃으로 채운다</span></span>
-      </div>
-      <div class="cal-row">
-        <span class="cal-d">3 / 3</span>
-        <span class="cal-n">꽃비 축제<span class="cal-x">가로수가 한꺼번에 핀다. 연인들의 날</span></span>
-      </div>
-      <div class="cal-row">
-        <span class="cal-d">4 / 20</span>
-        <span class="cal-n">황실 마상시합<span class="cal-x">기사들이 창을 겨루는 자리</span></span>
-      </div>
-      <div class="cal-row">
-        <span class="cal-d">매월 15</span>
-        <span class="cal-n">성녀의 축일<span class="cal-x">평민에게도 개방된다. 5월 15일이 본축일</span></span>
-      </div>
-      <div class="cal-row mark">
-        <span class="cal-d">8 / 23</span>
-        <span class="cal-n">건국제<span class="cal-x">황궁 연회. 귀족은 반드시 참석해야 한다</span></span>
-      </div>
-      <div class="cal-row">
-        <span class="cal-d">9 / 25</span>
-        <span class="cal-n">가을 사냥대회<span class="cal-x">숲에서는 사냥감보다 사람이 위험하다</span></span>
-      </div>
-      <div class="cal-row">
-        <span class="cal-d">10 / 12</span>
-        <span class="cal-n">수확제<span class="cal-x">신분 경계가 가장 느슨해지는 날</span></span>
-      </div>
-      <div class="cal-row mark">
-        <span class="cal-d">12 / 31</span>
-        <span class="cal-n">가면무도회<span class="cal-x">가면을 쓰고 신분을 숨긴 채 춤을 춘다</span></span>
-      </div>
-      <div class="cal-row">
-        <span class="cal-d">비정기</span>
-        <span class="cal-n">암시장 경매<span class="cal-x">초대장이 없으면 가지 못하는 곳</span></span>
-      </div>
-    </div>
-  </div>
-
-<br><br>
 <div class="ornament">— ◆ ◇ ◆ —</div>
 <br>
 </div>
