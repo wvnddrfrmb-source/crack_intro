@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아르투아 공작저 — 그림자 속의 10년</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --bg:        #0d0a0b;
+  --surface:   #1a1315;
+  --burgundy:  #6b2037;
+  --wine:      #8a2c42;
+  --wine-bright:#a83450;
+  --rose-dim:  #4a1a2a;
+  --cream:     #ebe0d0;
+  --text:      #9e918a;
+  --text-light:#d6cab8;
+  --gold-mute: #a08a5c;
+  --border:    rgba(107,32,55,0.2);
+  --border-lt: rgba(107,32,55,0.1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(107,32,55,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(74,26,42,0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+}
+
+.anchor { position: absolute; visibility: hidden; pointer-events: none; }
+
+.spine {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 1.8rem;
+}
+
+/* ── slider ── */
+.slider {
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0;
+  animation: slideIn 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  z-index: 1;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.slide-p1 { display: flex; }
+
+#s1:target ~ .spine .slide-p1,
+#s2:target ~ .spine .slide-p2,
+#s3:target ~ .spine .slide-p3,
+#s4:target ~ .spine .slide-p4,
+#s5:target ~ .spine .slide-p5,
+#s6:target ~ .spine .slide-p6,
+#s7:target ~ .spine .slide-p7 { display: flex; }
+
+#s2:target ~ .spine .slide-p1,
+#s3:target ~ .spine .slide-p1,
+#s4:target ~ .spine .slide-p1,
+#s5:target ~ .spine .slide-p1,
+#s6:target ~ .spine .slide-p1,
+#s7:target ~ .spine .slide-p1 { display: none; }
+
+/* ── motif ── */
+.motif {
+  text-align: center;
+  margin: 0 auto 2.5rem;
+}
+.motif svg { width: 44px; height: 44px; }
+
+/* ── section label ── */
+.sec-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.5em;
+  color: var(--wine-bright);
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.sec-label::before,
+.sec-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── prose (본문 — 웹폰트 없음) ── */
+.prose {
+  font-size: 0.88rem;
+  line-height: 2.15;
+  color: var(--text);
+}
+.prose p + p { margin-top: 1rem; }
+.prose .emp { color: var(--text-light); }
+.prose .accent { color: var(--wine-bright); }
+.prose .hint {
+  color: #555;
+  font-size: 0.72rem;
+  display: block;
+  margin-top: 1rem;
+}
+
+/* ── 대사 (글꼴+볼드만, 장식 없음) ── */
+.dialogue {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--text-light);
+  font-size: 0.88rem;
+  line-height: 2.15;
+  margin: 1rem 0;
+  display: block;
+}
+
+/* ── nav ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0 0;
+}
+.nav-set {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.nav-set.nav-p1 { display: flex; }
+
+#s1:target ~ .spine .nav .nav-set { display: none; }
+#s1:target ~ .spine .nav .nav-p1 { display: flex; }
+#s2:target ~ .spine .nav .nav-set { display: none; }
+#s2:target ~ .spine .nav .nav-p2 { display: flex; }
+#s3:target ~ .spine .nav .nav-set { display: none; }
+#s3:target ~ .spine .nav .nav-p3 { display: flex; }
+#s4:target ~ .spine .nav .nav-set { display: none; }
+#s4:target ~ .spine .nav .nav-p4 { display: flex; }
+#s5:target ~ .spine .nav .nav-set { display: none; }
+#s5:target ~ .spine .nav .nav-p5 { display: flex; }
+#s6:target ~ .spine .nav .nav-set { display: none; }
+#s6:target ~ .spine .nav .nav-p6 { display: flex; }
+#s7:target ~ .spine .nav .nav-set { display: none; }
+#s7:target ~ .spine .nav .nav-p7 { display: flex; }
+
+.nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(168,52,80,0.55);
+  color: #c44868;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: border-color 0.25s, color 0.25s, background 0.25s;
+}
+.nav-arrow:hover {
+  border-color: var(--wine-bright);
+  color: var(--cream);
+  background: var(--rose-dim);
+}
+.nav-arrow.off { opacity: 0.2; pointer-events: none; }
+
+.pg {
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: #5a5048;
+}
+.pg .now { color: var(--wine-bright); }
+
+/* ── divider ── */
+.divider {
+  text-align: center;
+  padding: 2.5rem 0;
+  color: var(--wine-bright);
+  font-size: 0.7rem;
+  letter-spacing: 1em;
+  opacity: 0.6;
+}
+
+/* ══ characters ══ */
+.chars {
+  padding: 2rem 0 4rem;
+  border-top: 1px solid var(--border-lt);
+}
+.chars-heading {
+  font-size: 0.6rem;
+  letter-spacing: 0.5em;
+  color: var(--wine-bright);
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.chars-heading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.chars-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-front {
+  display: flex;
+  flex-direction: column;
+  background: rgba(107,32,55,0.05);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.card-top {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+}
+.card-img {
+  width: 100px;
+  aspect-ratio: 3 / 4;
+  background: rgba(107,32,55,0.08);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(107,32,55,0.15);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.card-header {
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.card-name {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--cream);
+  line-height: 1.2;
+}
+.card-name-en {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--wine-bright);
+  font-style: italic;
+  font-weight: 700;
+}
+.card-role {
+  font-size: 0.68rem;
+  color: #6a5e58;
+  margin-top: 0.15rem;
+}
+.card-desc {
+  padding: 0.85rem 1.1rem;
+  font-size: 0.82rem;
+  line-height: 1.85;
+  color: #807870;
+  border-bottom: 1px solid var(--border);
+}
+.card-kw {
+  font-size: 0.46rem;
+  letter-spacing: 0.18em;
+  color: var(--wine-bright);
+  border: 1px solid rgba(168,52,80,0.25);
+  padding: 0.2rem 0.55rem;
+  text-transform: uppercase;
+}
+
+/* ── 엑스트라 카드 ── */
+.extras {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.extra-card {
+  border: 1px solid var(--border);
+  background: rgba(107,32,55,0.03);
+  padding: 0.8rem 1.1rem;
+}
+.extra-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+.extra-name {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--cream);
+}
+.extra-role {
+  font-size: 0.65rem;
+  color: #6a5e58;
+}
+.extra-desc {
+  font-size: 0.78rem;
+  line-height: 1.8;
+  color: #807870;
+}
+
+</style>
+</head>
+<body>
+
+<span id="s1" class="anchor"></span>
+<span id="s2" class="anchor"></span>
+<span id="s3" class="anchor"></span>
+<span id="s4" class="anchor"></span>
+<span id="s5" class="anchor"></span>
+<span id="s6" class="anchor"></span>
+<span id="s7" class="anchor"></span>
+
+<br>
+<p style="display:flex; justify-content:center; color: #555; font-size: 0.8rem;">♬ AI로 생성한 음악입니다. (38초) ♬</p><br>
+
+<div style="display:flex; justify-content:center;">
+  <audio controls src="https://cdn.jsdelivr.net/gh/chrleee/img/ScreenRecording_04-21-2026%2012-46-52_1.mp3" style="width:280px;"></audio>
+</div>
+
+<div class="spine">
+  <div class="slider">
+
+    <!-- PAGE 1 -->
+    <div class="slide slide-p1">
+      <div class="motif">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 4L28 16H40L30 24L34 36L24 28L14 36L18 24L8 16H20L24 4Z" fill="none" stroke="#a83450" stroke-width="0.8"/>
+          <circle cx="24" cy="24" r="20" fill="none" stroke="#a83450" stroke-width="0.4" stroke-dasharray="2 4"/>
+        </svg>
+      </div>
+      <div class="sec-label">아르투아 공작저</div>
+      <div class="prose">
+        <p><span class="emp">10년 전,</span> 아르투아 공작저의 거대한 철문 앞에 선 아이의 손에는 낡은 커프스 한 쌍이 쥐어져 있었다.</p>
+        <p class="hint">[▷]를 눌러 다음 페이지</p>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="slide slide-p2">
+      <div class="prose">
+        <p><span class="emp">베르톨드가 한때 사랑의 증표로 남겼던,<br>{{user}}의 평민 어머니가 {{user}}에게 건넨 유품.</span></p>
+        <p>저를 꼭 빼닮은 아름다운 눈매를 가진 아이를 보고도 베르톨드는 차마 고개를 들지 못했고, 공작부인 조세핀은 차가운 눈으로 아이를 <span class="accent">'공식적인 사생아'</span>라는 기괴한 위치에 박아 넣었다.</p>
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="slide slide-p3">
+      <div class="prose">
+        <p>처음의 {{user}}는 그저 행복했다. 비바람이 치지 않는 지붕, 끼니마다 올라오는 딱딱한 빵 한 조각에도 감지덕지하며 사용인들의 눈총을 감내했다.</p>
+        <p>하지만 배부름이 익숙해질 즈음, 그 시선들에 담긴 것이 단순한 멸시가 아니라 <span class="accent">뿌리 깊은 악의</span>라는 사실을 깨달았다.</p>
+        <p>일부러 쏟아붓는 차가운 목욕물과 곰팡이 핀 식재료가 섞인 식사, 그리고 명백히 <span class="emp">혀를 굳게 만드는</span> 역한 맛의 수프까지.</p>
+      </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="slide slide-p4">
+      <div class="prose">
+        <p>서툰 반항으로 저택의 화분을 깨뜨리거나, 조세핀의 서류를 숨겨보기도 했다. 돌아온 것은 베르톨드의 방관과 이복형제 클로이의 기만적인 눈물뿐이었다.</p>
+        <span class="dialogue">"도대체 왜 그래? 내가 더 잘해줄게, 응? 제발 나를 슬프게 하지 마."</span>
+        <p>클로이가 기어코 울음을 터뜨리자 하녀장 안젤라는 {{user}}를 <span class="accent">'은혜도 모르는 짐승'</span>이라 몰아세웠다. 그날 이후 {{user}}는 쥐죽은 듯 숨을 죽였다. 아르투아의 그림자 속에 완전히 매몰된 10년이었다.</p>
+      </div>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div class="slide slide-p5">
+      <div class="prose">
+        <p>매일 아침, 하녀 베티가 거칠게 커튼을 걷어젖힌다. 그녀가 침대 위에 던지듯 내려놓은 것은 유행이 한참 지나 레이스만 치렁치렁 늘어진 낡은 드레스였다.</p>
+        <span class="dialogue">"열흘 뒤가 데뷔탕트인 건 잊지 않으셨겠죠? 클로이 아가씨께 폐를 끼치지만 마세요."</span>
+        <p>베티가 내민 쟁반 위에는 오늘도 어김없이 그 기분 나쁜 수프가 놓여 있었다.</p>
+      </div>
+    </div>
+
+    <!-- PAGE 6 -->
+    <div class="slide slide-p6">
+      <div class="prose">
+        <p>베티가 방을 나가자 {{user}}는 손대지 않은 그릇을 내려놓고 거울 앞에 섰다.</p>
+<p>교육도 제대로 시키지 않은 사생아에게 데뷔탕트를 열흘 전에 고지하는 저의는 무엇이었을까.</p>
+<p>따뜻했던 적이 없는 음식, 제때 도착한 적 없는 안내, 이 저택에서 자신에게 주어지는 것들은 언제나 한 박자씩 늦었고, 그것이 의도인지 무관심인지조차 구별이 되지 않는다는 것이 가장 지독한 부분이었다.
+</p>
+      </div>
+    </div>
+
+    <!-- PAGE 7 -->
+    <div class="slide slide-p7">
+      <div class="sec-label"> ✧ </div>
+      <div class="prose">
+        <p>사교계가 차가운 곳이라는 사실은 알고 있다. 그리고 이 저택의 누구도 {{user}}가 그곳에서 살아남기를 바라지 않는다는 것 또한.</p>
+        <p>그렇다면 좋다.</p><p>차라리 그들이 가장 두려워하는 방식으로,<br><span class="emp">이 연극의 결말을 직접 비틀어버리리라.</span></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-set nav-p1">
+      <span class="nav-arrow off">◁</span>
+      <span class="pg"><span class="now">1</span> / 7</span>
+      <a class="nav-arrow" href="#s2">▷</a>
+    </div>
+    <div class="nav-set nav-p2">
+      <a class="nav-arrow" href="#s1">◁</a>
+      <span class="pg"><span class="now">2</span> / 7</span>
+      <a class="nav-arrow" href="#s3">▷</a>
+    </div>
+    <div class="nav-set nav-p3">
+      <a class="nav-arrow" href="#s2">◁</a>
+      <span class="pg"><span class="now">3</span> / 7</span>
+      <a class="nav-arrow" href="#s4">▷</a>
+    </div>
+    <div class="nav-set nav-p4">
+      <a class="nav-arrow" href="#s3">◁</a>
+      <span class="pg"><span class="now">4</span> / 7</span>
+      <a class="nav-arrow" href="#s5">▷</a>
+    </div>
+    <div class="nav-set nav-p5">
+      <a class="nav-arrow" href="#s4">◁</a>
+      <span class="pg"><span class="now">5</span> / 7</span>
+      <a class="nav-arrow" href="#s6">▷</a>
+    </div>
+    <div class="nav-set nav-p6">
+      <a class="nav-arrow" href="#s5">◁</a>
+      <span class="pg"><span class="now">6</span> / 7</span>
+      <a class="nav-arrow" href="#s7">▷</a>
+    </div>
+    <div class="nav-set nav-p7">
+      <a class="nav-arrow" href="#s6">◁</a>
+      <span class="pg"><span class="now">7</span> / 7</span>
+      <span class="nav-arrow off">▷</span>
+    </div>
+  </nav>
+
+  <div class="divider"> — ✦ — ✦ — </div>
+
+  <!-- CHARACTERS -->
+  <div class="chars">
+
+    <div class="chars-grid">
+
+      <div class="card-front">
+        <div class="card-top">
+          <div class="card-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/IMG_2410.jpeg"></div>
+          <div class="card-header">
+            <div class="card-name">클로이 아르투아</div>
+            <div class="card-name-en">Chloe Artois</div>
+            <div class="card-role">이복동생 / 20세</div>
+          </div>
+        </div>
+        <div class="card-desc">{{user}}의 때 묻지 않은 이복동생이자, {{user}}을 사랑하는 감옥. 무지함 또한 죄인 것을 그녀는 알지 못한다.</div>
+      </div>
+
+      <div class="card-front">
+        <div class="card-top">
+          <div class="card-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/IMG_2412.jpeg"></div>
+          <div class="card-header">
+            <div class="card-name">마리엔 클로버</div>
+            <div class="card-name-en">Marien Clover</div>
+            <div class="card-role">과외 선생 / 54세</div>
+          </div>
+        </div>
+        <div class="card-desc">지워진 기억의 공백 속에서, 몸이 먼저 기억하는 모성으로 당신을 향해 내밀어진 따스한 손.</div>
+      </div>
+
+      <div class="card-front">
+        <div class="card-top">
+          <div class="card-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/IMG_2413.jpeg"></div>
+          <div class="card-header">
+            <div class="card-name">카실 로슈</div>
+            <div class="card-name-en">Kacyll Roche</div>
+            <div class="card-role">백작가의 탕아 / 27세</div>
+          </div>
+        </div>
+        <div class="card-desc">대가 없는 구원은 주워지지 않는다. 사랑을 속삭이는 가벼운 입술은 단 한 번도 가면을 벗은 적이 없다.</div>
+      </div>
+
+      <div class="card-front">
+        <div class="card-top">
+          <div class="card-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/IMG_2411.jpeg"></div>
+          <div class="card-header">
+            <div class="card-name">쥬느뷔에브 뮈르</div>
+            <div class="card-name-en">Geneviève Mür</div>
+            <div class="card-role">미망인 화가 / 35세</div>
+          </div>
+        </div>
+        <div class="card-desc">오랜 원한의 끝에서, {{user}}라는 가장 아름다운 복수극의 소재를 발견한 관찰자.</div>
+      </div>
+
+      <div class="card-front">
+        <div class="card-top">
+          <div class="card-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/IMG_2415.jpeg"></div>
+          <div class="card-header">
+            <div class="card-name">루시앙 베르니에</div>
+            <div class="card-name-en">Lucien Vernier</div>
+            <div class="card-role">클로이 전담 기사 / 27세</div>
+          </div>
+        </div>
+        <div class="card-desc">침묵은 기사의 미덕인가? 클로이의 곁에서 {{user}}를 외면해 왔으나, 이제야 그 무게를 깨닫기 시작한 호위기사.</div>
+      </div>
+
+      <div class="card-front">
+        <div class="card-top">
+          <div class="card-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/IMG_2414.jpeg"></div>
+          <div class="card-header">
+            <div class="card-name">노엘</div>
+            <div class="card-name-en">Noël</div>
+            <div class="card-role">{{user}} 전담 기사 / 30세</div>
+          </div>
+        </div>
+        <div class="card-desc">적당히 월급이나 받으며 위험과 도박을 피하려는 주인 없는 사냥개.</div>
+      </div>
+
+      <div class="card-front">
+        <div class="card-top">
+          <div class="card-img"><img src="https://raw.githubusercontent.com/chrleee/img/refs/heads/main/IMG_2416.jpeg"></div>
+          <div class="card-header">
+            <div class="card-name">이상한 남자</div>
+            <div class="card-name-en">Tarzen von Karthya</div>
+            <div class="card-role">수상하다 / 28세</div>
+          </div>
+        </div>
+        <div class="card-desc">어디서 봤더라?</div>
+      </div>
+
+    </div>
+  </div>
+<br>
+
+<div class="chars-heading" style="margin-top: 1rem;">그 외</div>
+
+<div class="extras">
+  <div class="extra-card">
+    <div class="extra-top">
+      <span class="extra-name">베르톨드 아르투아</span>
+      <span class="extra-role">공작 / 52세</span>
+    </div>
+    <div class="extra-desc">아르투아 공작가의 데릴사위, {{user}}의 친부. 사랑했던 여인의 아이를 외면하지 못했으나, 끝내 보호하지도 못한 비겁한 남자. </div>
+  </div>
+
+  <div class="extra-card">
+    <div class="extra-top">
+      <span class="extra-name">조세핀 아르투아</span>
+      <span class="extra-role">공작부인 / 45세</span>
+    </div>
+    <div class="extra-desc">냉철하고 체계적인 실리주의자. 가문을 살피기에는 황궁 시녀장의 자리가 너무나 바쁘다. {{user}}를 '공식적인 사생아'라는 이름으로 가문 안에 가두었다. </div>
+  </div>
+
+  <div class="extra-card">
+    <div class="extra-top">
+      <span class="extra-name">안젤라 메르텐</span>
+      <span class="extra-role">하녀장</span>
+    </div>
+    <div class="extra-desc">공작부인의 뜻을 실행한다는 미명 하에 자신의 감정을 싣는 저택의 실세.</div>
+  </div>
+
+  <div class="extra-card">
+    <div class="extra-top">
+      <span class="extra-name">베티</span>
+      <span class="extra-role">전담 하녀</span>
+    </div>
+    <div class="extra-desc">사생아지만 엄연한 귀족인 {{user}}에게 사용인 이하의 대우를 하는 일상의 가해자.</div>
+  </div>
+
+</div>
+<br><br>
+</div>
+</body>
+</html>
